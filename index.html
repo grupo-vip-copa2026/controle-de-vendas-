@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PDV Figurinhas - Copa 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            var(--primary): #009c3b;
+            --primary: #009c3b;       
+            --primary-dark: #007a2e;
+            --secondary: #ffdf00;     
+            --accent: #002776;        
+            --bg-color: #f1f5f9;      
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* CABEÇALHO E DASHBOARD */
+        header {
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 25px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            color: white;
+            padding: 25px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 150px;
+            height: 150px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+        }
+
+        .card.receita { background: linear-gradient(135deg, var(--primary), #05c46b); }
+        .card.pacotes { background: linear-gradient(135deg, var(--accent), #3867d6); }
+        .card.avulsas { background: linear-gradient(135deg, var(--warning), #fa8231); }
+
+        .card h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .card p {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        /* ESTRUTURA PRINCIPAL */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* Só divide em 2 colunas se a tela for grande (computador/tablet deitado) */
+        @media (min-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 380px 1fr;
+            }
+        }
+
+        /* CAIXAS BRANCAS (SEÇÕES) */
+        .form-section, .table-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .form-section h2, .table-section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-divider {
+            margin: 25px 0 20px 0;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        /* FORMULÁRIOS */
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-row .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            color: var(--text-main);
+            background-color: #f8fafc;
+            transition: all 0.2s ease;
+            outline: none;
+            width: 100%;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 156, 59, 0.1);
+        }
+
+        input[readonly] {
+            background-color: #e2e8f0;
+            cursor: not-allowed;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        /* PAINEL DE TROCO */
+        .painel-troco {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .linha-resumo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .linha-resumo:last-child {
+            margin-bottom: 0;
+            padding-top: 15px;
+            border-top: 2px dashed #cbd5e1;
+        }
+
+        .valor-total {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .valor-troco {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .escondido { display: none !important; }
+
+        /* BOTÕES */
+        button {
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:active { transform: scale(0.98); }
+
+        .btn-venda { 
+            background-color: var(--primary); 
+            color: white; 
+            box-shadow: 0 4px 6px rgba(0, 156, 59, 0.2);
+        }
+        .btn-venda:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+
+        .btn-estoque { background-color: var(--text-main); color: white; margin-top: 10px; }
+        .btn-estoque:hover { background-color: #0f172a; transform: translateY(-2px); }
+
+        .btn-editar { background-color: white; color: var(--text-main); border: 2px solid var(--border); }
+        .btn-editar:hover { background-color: #f8fafc; border-color: #cbd5e1; }
+
+        .btn-excluir { 
+            background-color: #fee2e2; 
+            color: var(--danger);
+            padding: 6px 12px; 
+            font-size: 12px; 
+            border-radius: 6px;
+            width: auto;
+            font-weight: 600;
+        }
+        .btn-excluir:hover { background-color: var(--danger); color: white; }
+
+        /* TABELA HISTÓRICO RESPONSIVA */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto; /* Permite rolar para os lados no celular */
+            -webkit-overflow-scrolling: touch; /* Rolagem suave no iOS */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 14px;
+            min-width: 550px; /* Impede a tabela de amassar demais as colunas */
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            padding: 15px 10px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap; /* Impede o título da coluna de quebrar linha */
+        }
+
+        td {
+            padding: 15px 10px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr { transition: background-color 0.2s; }
+        tr:hover { background-color: #f8fafc; }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            min-width: 75px;
+        }
+        .badge-dinheiro { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .badge-pix { background-color: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+        .badge-cartao { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nova-venda-anim { animation: fadeInDown 0.4s ease forwards; }
+
+        /* ========================================================
+           AJUSTES ESPECÍFICOS PARA CELULAR (Design Responsivo)
+           ======================================================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px; /* Reduz a margem lateral da tela toda */
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr; /* Empilha os blocos verde, azul e laranja */
+                gap: 15px;
+            }
+
+            .card {
+                padding: 20px 15px;
+            }
+
+            .form-section, .table-section {
+                padding: 15px; /* Aproveita mais a tela para os formulários */
+            }
+
+            /* Empilha os inputs que estavam lado a lado */
+            .input-row {
+                flex-direction: column;
+                gap: 0;
+                margin-bottom: 0;
+            }
+            .input-row .input-group {
+                margin-bottom: 15px;
+            }
+
+            .painel-troco {
+                padding: 15px;
+            }
+
+            .valor-total { font-size: 18px; }
+            .valor-troco { font-size: 20px; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚽ PDV - Copa 2026</h1>
+            <div class="dashboard">
+                <div class="card receita">
+                    <h3>Total Arrecadado</h3>
+                    <p id="total-receita">R$ 0,00</p>
+                </div>
+                <div class="card pacotes">
+                    <h3>Estoque de Pacotes</h3>
+                    <p id="est-pacotes">0</p>
+                </div>
+                <div class="card avulsas">
+                    <h3>Estoque Avulsas</h3>
+                    <p id="est-avulsas">0</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid-layout">
+            <aside>
+                <section class="form-section">
+                    <h2>🛒 Registrar Nova Venda</h2>
+                    <form id="form-venda">
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="tipo">Item:</label>
+                                <select id="tipo" required>
+                                    <option value="Pacote">Pacote</option>
+                                    <option value="Avulsa">Avulsa</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="quantidade">Quantidade:</label>
+                                <input type="number" id="quantidade" min="1" value="1" required>
+                            </div>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="preco">Unitário (R$):</label>
+                                <input type="number" id="preco" step="0.01" readonly required>
+                            </div>
+                            <div class="input-group">
+                                <label for="pagamento">Pagamento:</label>
+                                <select id="pagamento" required>
+                                    <option value="Dinheiro">💵 Dinheiro</option>
+                                    <option value="PIX">💠 PIX</option>
+                                    <option value="Cartão">💳 Cartão</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="painel-troco">
+                            <div class="linha-resumo">
+                                <span style="color: var(--text-muted);">Total da Compra:</span>
+                                <span class="valor-total" id="display-total-venda">R$ 7,00</span>
+                            </div>
+                            
+                            <div id="area-calculo-troco">
+                                <div class="input-group" style="margin-bottom: 5px; margin-top: 15px;">
+                                    <label for="valor-recebido">Dinheiro Recebido (R$):</label>
+                                    <input type="number" id="valor-recebido" step="0.01" min="0" placeholder="0.00" style="font-size: 18px; font-weight: bold; text-align: right;">
+                                </div>
+
+                                <div class="linha-resumo">
+                                    <span style="color: var(--text-main);">Troco a Devolver:</span>
+                                    <span class="valor-troco" id="display-troco">R$ 0,00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-venda">✅ Finalizar Venda</button>
+                    </form>
+                </section>
+
+                <section class="form-section">
+                    <h2>📦 Gerenciar Estoque</h2>
+                    
+                    <form id="form-estoque">
+                        <label style="font-size: 14px; color: var(--text-main);">➕ Dar Entrada (Somar):</label>
+                        <div class="input-row" style="margin-top: 8px;">
+                            <div class="input-group">
+                                <select id="tipo-estoque" required>
+                                    <option value="Pacote">Pacotes</option>
+                                    <option value="Avulsa">Avulsas</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="qtd-estoque" min="1" value="50" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-estoque">Somar ao Estoque</button>
+                    </form>
+
+                    <div class="section-divider"></div>
+
+                    <form id="form-editar-estoque">
+                        <label style="font-size: 14px; color: var(--text-main);">✏️ Correção Manual (Ajustar para):</label>
+                        <div class="input-row" style="margin-top: 8px;">
+                            <div class="input-group">
+                                <label for="edit-pacotes">Pacotes exatos:</label>
+                                <input type="number" id="edit-pacotes" min="0" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="edit-avulsas">Avulsas exatas:</label>
+                                <input type="number" id="edit-avulsas" min="0" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-editar" id="btn-salvar-edicao">Salvar Correção</button>
+                    </form>
+                </section>
+            </aside>
+
+            <main class="table-section">
+                <h2>📋 Histórico de Vendas</h2>
+                <div class="table-wrapper">
+                    <table id="tabela-vendas">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Detalhe</th>
+                                <th>Pgto</th>
+                                <th>Valor Total</th>
+                                <th style="text-align: right;">Troco</th>
+                                <th style="text-align: center;">Cancelar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const formVenda = document.getElementById('form-venda');
+        const formEstoque = document.getElementById('form-estoque');
+        const formEditarEstoque = document.getElementById('form-editar-estoque');
+        
+        const tabelaVendas = document.querySelector('#tabela-vendas tbody');
+        
+        const totalReceitaEl = document.getElementById('total-receita');
+        const estPacotesEl = document.getElementById('est-pacotes');
+        const estAvulsasEl = document.getElementById('est-avulsas');
+        
+        const tipoEl = document.getElementById('tipo');
+        const quantidadeEl = document.getElementById('quantidade');
+        const precoEl = document.getElementById('preco');
+        const pagamentoEl = document.getElementById('pagamento');
+        
+        const areaCalculoTroco = document.getElementById('area-calculo-troco');
+        const valorRecebidoEl = document.getElementById('valor-recebido');
+        const displayTotalVenda = document.getElementById('display-total-venda');
+        const displayTroco = document.getElementById('display-troco');
+
+        const editPacotesEl = document.getElementById('edit-pacotes');
+        const editAvulsasEl = document.getElementById('edit-avulsas');
+
+        // Estado do App
+        let totalArrecadado = parseFloat(localStorage.getItem('copa_total')) || 0;
+        let estoquePacotes = parseInt(localStorage.getItem('copa_pacotes')) || 0;
+        let estoqueAvulsas = parseInt(localStorage.getItem('copa_avulsas')) || 0;
+        let historicoVendas = JSON.parse(localStorage.getItem('copa_historico')) || [];
+        let trocoAtual = 0;
+
+        function salvarDados() {
+            localStorage.setItem('copa_total', totalArrecadado);
+            localStorage.setItem('copa_pacotes', estoquePacotes);
+            localStorage.setItem('copa_avulsas', estoqueAvulsas);
+            localStorage.setItem('copa_historico', JSON.stringify(historicoVendas));
+        }
+
+        function obterClasseBadge(pagamento) {
+            if(pagamento === 'Dinheiro') return 'badge-dinheiro';
+            if(pagamento === 'PIX') return 'badge-pix';
+            return 'badge-cartao';
+        }
+
+        function atualizarInterface(novaLinhaIndex = -1) {
+            totalReceitaEl.textContent = `R$ ${totalArrecadado.toFixed(2).replace('.', ',')}`;
+            estPacotesEl.textContent = estoquePacotes;
+            estAvulsasEl.textContent = estoqueAvulsas;
+
+            editPacotesEl.value = estoquePacotes;
+            editAvulsasEl.value = estoqueAvulsas;
+
+            tabelaVendas.innerHTML = '';
+            historicoVendas.forEach((venda, index) => {
+                const pagtoSafe = venda.pagamento || 'Dinheiro';
+                const trocoSafe = venda.troco || 0;
+
+                let textoTroco = '-';
+                let estiloTroco = 'color: #94a3b8; font-size: 16px; text-align: right;'; 
+                
+                if (pagtoSafe === 'Dinheiro') {
+                    textoTroco = `R$ ${trocoSafe.toFixed(2).replace('.', ',')}`;
+                    if (trocoSafe > 0) {
+                        estiloTroco = 'color: var(--danger); font-weight: 700; text-align: right; font-size: 15px;'; 
+                    } else {
+                        estiloTroco = 'color: #64748b; font-weight: 500; text-align: right;'; 
+                    }
+                }
+
+                const tr = document.createElement('tr');
+                if (index === novaLinhaIndex) tr.classList.add('nova-venda-anim');
+
+                tr.innerHTML = `
+                    <td style="color: #64748b; font-size: 12px; line-height: 1.4;">
+                        ${venda.data.split(' ')[0]}<br>
+                        <span style="font-weight:600; color:#475569;">${venda.data.split(' ')[1]}</span>
+                    </td>
+                    <td>
+                        <div style="font-weight: 600; color: var(--text-main);">${venda.tipo}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">x${venda.qtd} un.</div>
+                    </td>
+                    <td><span class="badge ${obterClasseBadge(pagtoSafe)}">${pagtoSafe}</span></td>
+                    <td style="font-weight: 700; color: var(--primary-dark);">R$ ${venda.total.toFixed(2).replace('.', ',')}</td>
+                    <td style="${estiloTroco}">${textoTroco}</td>
+                    <td style="text-align: center;">
+                        <button class="btn-excluir" title="Cancelar Venda" onclick="deletarVenda(${index})">Deletar</button>
+                    </td>
+                `;
+                tabelaVendas.appendChild(tr);
+            });
+        }
+
+        window.deletarVenda = function(index) {
+            if(confirm("⚠ Deseja realmente cancelar esta venda?\nO valor será removido do caixa e os itens voltarão ao estoque.")) {
+                const venda = historicoVendas[index];
+
+                totalArrecadado -= venda.total;
+                if (totalArrecadado < 0) totalArrecadado = 0; 
+
+                if (venda.tipo === 'Pacote') estoquePacotes += venda.qtd;
+                else if (venda.tipo === 'Avulsa') estoqueAvulsas += venda.qtd;
+
+                historicoVendas.splice(index, 1);
+                salvarDados();
+                atualizarInterface();
+            }
+        };
+
+        function atualizarResumoVenda() {
+            const tipo = tipoEl.value;
+            const quantidade = parseInt(quantidadeEl.value) || 1;
+            const formaPgto = pagamentoEl.value;
+
+            areaCalculoTroco.classList.toggle('escondido', formaPgto !== 'Dinheiro');
+
+            if (tipo === 'Pacote') precoEl.value = quantidade >= 10 ? '6.00' : '7.00';
+            else if (tipo === 'Avulsa') precoEl.value = '1.00'; 
+
+            const preco = parseFloat(precoEl.value);
+            const totalCompra = quantidade * preco;
+            
+            displayTotalVenda.textContent = `R$ ${totalCompra.toFixed(2).replace('.', ',')}`;
+
+            if (formaPgto === 'Dinheiro') {
+                const recebido = parseFloat(valorRecebidoEl.value);
+                if (!isNaN(recebido) && recebido > 0) {
+                    const troco = recebido - totalCompra;
+                    
+                    if (troco < 0) {
+                        displayTroco.textContent = `Falta R$ ${Math.abs(troco).toFixed(2).replace('.', ',')}`;
+                        displayTroco.style.color = "var(--danger)"; 
+                        trocoAtual = 0; 
+                    } else {
+                        displayTroco.textContent = `R$ ${troco.toFixed(2).replace('.', ',')}`;
+                        displayTroco.style.color = "var(--success)"; 
+                        trocoAtual = troco; 
+                    }
+                } else {
+                    displayTroco.textContent = `R$ 0,00`;
+                    displayTroco.style.color = "var(--text-main)";
+                    trocoAtual = 0;
+                }
+            } else {
+                trocoAtual = 0; 
+            }
+        }
+
+        tipoEl.addEventListener('change', atualizarResumoVenda);
+        quantidadeEl.addEventListener('input', atualizarResumoVenda);
+        pagamentoEl.addEventListener('change', atualizarResumoVenda);
+        valorRecebidoEl.addEventListener('input', atualizarResumoVenda);
+
+        formEstoque.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const tipoItem = document.getElementById('tipo-estoque').value;
+            const qtd = parseInt(document.getElementById('qtd-estoque').value);
+
+            if (tipoItem === 'Pacote') estoquePacotes += qtd;
+            else if (tipoItem === 'Avulsa') estoqueAvulsas += qtd;
+
+            salvarDados();
+            atualizarInterface();
+            document.getElementById('qtd-estoque').value = 50; 
+        });
+
+        formEditarEstoque.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            estoquePacotes = parseInt(editPacotesEl.value);
+            estoqueAvulsas = parseInt(editAvulsasEl.value);
+
+            salvarDados();
+            atualizarInterface();
+            
+            const btn = document.getElementById('btn-salvar-edicao');
+            const textoOriginal = btn.textContent;
+            btn.innerHTML = "✔ Salvo!";
+            btn.style.backgroundColor = "var(--success)";
+            btn.style.color = "white";
+            btn.style.borderColor = "var(--success)";
+            
+            setTimeout(() => {
+                btn.textContent = textoOriginal;
+                btn.style.backgroundColor = "";
+                btn.style.color = "";
+                btn.style.borderColor = "";
+            }, 2000);
+        });
+
+        formVenda.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const tipo = tipoEl.value;
+            const quantidade = parseInt(quantidadeEl.value);
+            const preco = parseFloat(precoEl.value);
+            const formaPgto = pagamentoEl.value;
+            const totalVenda = quantidade * preco;
+            const recebido = parseFloat(valorRecebidoEl.value) || 0;
+
+            if (tipo === 'Pacote' && quantidade > estoquePacotes) {
+                alert(`❌ Estoque insuficiente!\nVocê possui apenas ${estoquePacotes} pacotes.`);
+                return;
+            }
+            if (tipo === 'Avulsa' && quantidade > estoqueAvulsas) {
+                alert(`❌ Estoque insuficiente!\nVocê possui apenas ${estoqueAvulsas} avulsas.`);
+                return;
+            }
+
+            if (formaPgto === 'Dinheiro' && recebido > 0 && recebido < totalVenda) {
+                alert("⚠ O dinheiro recebido é menor que o total da venda!");
+                return; 
+            }
+
+            if (tipo === 'Pacote') estoquePacotes -= quantidade;
+            else if (tipo === 'Avulsa') estoqueAvulsas -= quantidade;
+
+            totalArrecadado += totalVenda;
+
+            const dataAtual = new Date();
+            const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+            const novaVenda = {
+                data: formatData,
+                tipo: tipo,
+                qtd: quantidade,
+                preco: preco,
+                total: totalVenda,
+                pagamento: formaPgto,
+                troco: trocoAtual
+            };
+            
+            historicoVendas.unshift(novaVenda);
+
+            salvarDados();
+            atualizarInterface(0);
+            
+            quantidadeEl.value = 1;
+            valorRecebidoEl.value = ''; 
+            atualizarResumoVenda();
+            
+            quantidadeEl.focus();
+        });
+
+        // Init
+        atualizarResumoVenda();
+        atualizarInterface();
+    </script>
+</body>
+</html>
