@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#009c3b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PDV Copa">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23009c3b'/><text y='54' x='50' fill='white' font-size='55' dominant-baseline='middle' text-anchor='middle'>⚽</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23009c3b'/><text y='54' x='50' fill='white' font-size='55' dominant-baseline='middle' text-anchor='middle'>⚽</text></svg>">
+
     <title>PDV Figurinhas - Copa 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            var(--primary): #009c3b;
             --primary: #009c3b;       
             --primary-dark: #007a2e;
             --secondary: #ffdf00;     
@@ -19,7 +26,6 @@
             --text-muted: #64748b;
             --border: #e2e8f0;
             --danger: #ef4444;
-            --danger-hover: #dc2626;
             --success: #10b981;
             --warning: #f59e0b;
         }
@@ -43,7 +49,6 @@
             padding: 20px;
         }
 
-        /* CABEÇALHO E DASHBOARD */
         header {
             margin-bottom: 30px;
             padding-top: 10px;
@@ -77,9 +82,7 @@
             transition: transform 0.3s ease;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+        .card:hover { transform: translateY(-5px); }
 
         .card::after {
             content: '';
@@ -110,26 +113,21 @@
             font-weight: 700;
         }
 
-        /* ESTRUTURA PRINCIPAL */
         .grid-layout {
             display: grid;
             grid-template-columns: 1fr;
             gap: 30px;
         }
 
-        /* Só divide em 2 colunas se a tela for grande (computador/tablet deitado) */
         @media (min-width: 900px) {
-            .grid-layout {
-                grid-template-columns: 380px 1fr;
-            }
+            .grid-layout { grid-template-columns: 380px 1fr; }
         }
 
-        /* CAIXAS BRANCAS (SEÇÕES) */
         .form-section, .table-section {
             background: var(--card-bg);
             padding: 25px;
             border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             margin-bottom: 25px;
             border: 1px solid rgba(255,255,255,0.5);
         }
@@ -140,9 +138,6 @@
             color: var(--text-main);
             border-bottom: 2px solid var(--border);
             padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .section-divider {
@@ -150,7 +145,6 @@
             border-bottom: 1px dashed var(--border);
         }
 
-        /* FORMULÁRIOS */
         .input-group {
             margin-bottom: 15px;
             display: flex;
@@ -182,7 +176,6 @@
             font-size: 15px;
             color: var(--text-main);
             background-color: #f8fafc;
-            transition: all 0.2s ease;
             outline: none;
             width: 100%;
         }
@@ -190,7 +183,6 @@
         input:focus, select:focus {
             border-color: var(--primary);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 156, 59, 0.1);
         }
 
         input[readonly] {
@@ -200,14 +192,12 @@
             font-weight: 700;
         }
 
-        /* PAINEL DE TROCO */
         .painel-troco {
             background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
             border: 1px solid var(--border);
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 20px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .linha-resumo {
@@ -225,21 +215,12 @@
             border-top: 2px dashed #cbd5e1;
         }
 
-        .valor-total {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .valor-troco {
-            font-size: 22px;
-            font-weight: 700;
-        }
+        .valor-total { font-size: 20px; font-weight: 700; color: var(--accent); }
+        .valor-troco { font-size: 22px; font-weight: 700; }
 
         .escondido { display: none !important; }
 
-        /* BOTÕES */
-        button {
+        button, .btn-label {
             border: none;
             padding: 14px 20px;
             border-radius: 8px;
@@ -247,140 +228,62 @@
             font-weight: 600;
             width: 100%;
             font-size: 16px;
-            transition: all 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
+            transition: transform 0.2s;
         }
 
-        button:active { transform: scale(0.98); }
+        button:active, .btn-label:active { transform: scale(0.98); }
 
-        .btn-venda { 
-            background-color: var(--primary); 
-            color: white; 
-            box-shadow: 0 4px 6px rgba(0, 156, 59, 0.2);
-        }
-        .btn-venda:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
-
+        .btn-venda { background-color: var(--primary); color: white; }
+        .btn-troca { background-color: var(--accent); color: white; }
         .btn-estoque { background-color: var(--text-main); color: white; margin-top: 10px; }
-        .btn-estoque:hover { background-color: #0f172a; transform: translateY(-2px); }
-
         .btn-editar { background-color: white; color: var(--text-main); border: 2px solid var(--border); }
-        .btn-editar:hover { background-color: #f8fafc; border-color: #cbd5e1; }
+        .btn-excluir { background-color: #fee2e2; color: var(--danger); padding: 6px 12px; font-size: 12px; border-radius: 6px; width: auto; }
+        
+        .btn-sync-export { background-color: #3b82f6; color: white; margin-bottom: 10px; }
+        .btn-sync-import { background-color: #8b5cf6; color: white; }
 
-        .btn-excluir { 
-            background-color: #fee2e2; 
-            color: var(--danger);
-            padding: 6px 12px; 
-            font-size: 12px; 
-            border-radius: 6px;
-            width: auto;
-            font-weight: 600;
-        }
-        .btn-excluir:hover { background-color: var(--danger); color: white; }
+        .table-wrapper { width: 100%; overflow: hidden; }
 
-        /* TABELA HISTÓRICO RESPONSIVA */
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto; /* Permite rolar para os lados no celular */
-            -webkit-overflow-scrolling: touch; /* Rolagem suave no iOS */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            font-size: 14px;
-            min-width: 550px; /* Impede a tabela de amassar demais as colunas */
-        }
-
-        th {
-            background-color: #f8fafc;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.5px;
-            padding: 15px 10px;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-            white-space: nowrap; /* Impede o título da coluna de quebrar linha */
-        }
-
-        td {
-            padding: 15px 10px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
-
+        table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+        th { background-color: #f8fafc; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 12px; padding: 15px 10px; text-align: left; border-bottom: 2px solid var(--border); }
+        td { padding: 15px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         tr:last-child td { border-bottom: none; }
-        tr { transition: background-color 0.2s; }
         tr:hover { background-color: #f8fafc; }
 
-        .badge {
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-            text-align: center;
-            min-width: 75px;
-        }
+        .badge { padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; text-align: center; min-width: 75px; }
         .badge-dinheiro { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         .badge-pix { background-color: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
         .badge-cartao { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+        .badge-troca { background-color: #f3f4f6; color: #4b5563; border: 1px solid #e5e7eb; }
+        .badge-misto { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .nova-venda-anim { animation: fadeInDown 0.4s ease forwards; }
 
-        /* ========================================================
-           AJUSTES ESPECÍFICOS PARA CELULAR (Design Responsivo)
-           ======================================================== */
+        /* VISÃO MOBILE */
         @media (max-width: 768px) {
-            .container {
-                padding: 10px; /* Reduz a margem lateral da tela toda */
-            }
+            .container { padding: 10px; }
+            h1 { font-size: 24px; margin-bottom: 15px; }
+            .dashboard { grid-template-columns: 1fr; gap: 15px; }
+            .card { padding: 20px 15px; }
+            .form-section, .table-section { padding: 15px; }
+            .input-row { flex-direction: column; gap: 0; margin-bottom: 0; }
+            .input-row .input-group { margin-bottom: 15px; }
 
-            h1 {
-                font-size: 24px;
-                margin-bottom: 15px;
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr; /* Empilha os blocos verde, azul e laranja */
-                gap: 15px;
-            }
-
-            .card {
-                padding: 20px 15px;
-            }
-
-            .form-section, .table-section {
-                padding: 15px; /* Aproveita mais a tela para os formulários */
-            }
-
-            /* Empilha os inputs que estavam lado a lado */
-            .input-row {
-                flex-direction: column;
-                gap: 0;
-                margin-bottom: 0;
-            }
-            .input-row .input-group {
-                margin-bottom: 15px;
-            }
-
-            .painel-troco {
-                padding: 15px;
-            }
-
-            .valor-total { font-size: 18px; }
-            .valor-troco { font-size: 20px; }
+            table, thead, tbody, th, td, tr { display: block; width: 100%; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr { background-color: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; margin-bottom: 15px; padding: 10px; }
+            td { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding: 10px 5px; }
+            td:last-child { border-bottom: none; justify-content: center; padding-top: 15px; }
+            td::before { content: attr(data-label); font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 11px; flex: 1; text-align: left; }
+            td .td-content { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+            td[data-label="Ação"]::before { display: none; }
+            .btn-excluir { width: 100%; padding: 10px; font-size: 14px; }
         }
-
     </style>
 </head>
 <body>
@@ -427,13 +330,47 @@
                                 <label for="preco">Unitário (R$):</label>
                                 <input type="number" id="preco" step="0.01" readonly required>
                             </div>
+                            
                             <div class="input-group">
-                                <label for="pagamento">Pagamento:</label>
-                                <select id="pagamento" required>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <label for="pagamento" style="margin:0;">Pagamento:</label>
+                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 12px; color: var(--accent); font-weight: 700;">
+                                        <input type="checkbox" id="check-misto" style="width: auto; cursor: pointer;"> Dividir
+                                    </label>
+                                </div>
+                                <select id="pagamento">
                                     <option value="Dinheiro">💵 Dinheiro</option>
                                     <option value="PIX">💠 PIX</option>
                                     <option value="Cartão">💳 Cartão</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div id="area-pgto-misto" class="escondido" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed #cbd5e1;">
+                            <label style="font-size: 13px; font-weight: 600; color: var(--accent); display: block; margin-bottom: 10px;">💳 Valores Divididos:</label>
+                            <div class="input-row" style="margin-bottom: 10px;">
+                                <div class="input-group" style="flex: 1.5; margin-bottom: 0;">
+                                    <select id="pagamento1" style="font-size: 13px; padding: 10px;">
+                                        <option value="PIX">💠 PIX</option>
+                                        <option value="Dinheiro">💵 Dinheiro</option>
+                                        <option value="Cartão">💳 Cartão</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                                    <input type="number" id="valor1" step="0.01" min="0" placeholder="R$ 0,00" style="font-size: 14px; padding: 10px;">
+                                </div>
+                            </div>
+                            <div class="input-row" style="margin-bottom: 0;">
+                                <div class="input-group" style="flex: 1.5; margin-bottom: 0;">
+                                    <select id="pagamento2" style="font-size: 13px; padding: 10px;">
+                                        <option value="Dinheiro">💵 Dinheiro</option>
+                                        <option value="PIX">💠 PIX</option>
+                                        <option value="Cartão">💳 Cartão</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" style="flex: 1; margin-bottom: 0;">
+                                    <input type="number" id="valor2" step="0.01" min="0" placeholder="R$ 0,00" style="font-size: 14px; padding: 10px;">
+                                </div>
                             </div>
                         </div>
 
@@ -443,16 +380,14 @@
                                 <span class="valor-total" id="display-total-venda">R$ 7,00</span>
                             </div>
                             
-                            <div id="area-calculo-troco">
-                                <div class="input-group" style="margin-bottom: 5px; margin-top: 15px;">
-                                    <label for="valor-recebido">Dinheiro Recebido (R$):</label>
-                                    <input type="number" id="valor-recebido" step="0.01" min="0" placeholder="0.00" style="font-size: 18px; font-weight: bold; text-align: right;">
-                                </div>
+                            <div class="input-group" id="area-dinheiro-recebido" style="margin-bottom: 5px; margin-top: 15px;">
+                                <label for="valor-recebido">Dinheiro Recebido (R$):</label>
+                                <input type="number" id="valor-recebido" step="0.01" min="0" placeholder="0.00" style="font-size: 18px; font-weight: bold; text-align: right;">
+                            </div>
 
-                                <div class="linha-resumo">
-                                    <span style="color: var(--text-main);">Troco a Devolver:</span>
-                                    <span class="valor-troco" id="display-troco">R$ 0,00</span>
-                                </div>
+                            <div class="linha-resumo" id="area-linha-troco">
+                                <span style="color: var(--text-main);">Troco a Devolver:</span>
+                                <span class="valor-troco" id="display-troco">R$ 0,00</span>
                             </div>
                         </div>
 
@@ -461,7 +396,42 @@
                 </section>
 
                 <section class="form-section">
-                    <h2>📦 Gerenciar Estoque</h2>
+                    <h2>🔄 Troca (7 por 1)</h2>
+                    <form id="form-troca">
+                        <div class="input-group">
+                            <label for="qtd-recebida">Qtd. de Avulsas que o cliente entregou:</label>
+                            <input type="number" id="qtd-recebida" min="7" placeholder="Ex: 9" required>
+                        </div>
+                        
+                        <div class="painel-troco">
+                            <div class="linha-resumo">
+                                <span style="color: var(--text-muted);">Pacotes a Entregar:</span>
+                                <span class="valor-total" id="troca-pacotes" style="color: var(--primary);">0</span>
+                            </div>
+                            <div class="linha-resumo">
+                                <span style="color: var(--text-muted);">Avulsas Compradas (Sobras):</span>
+                                <span class="valor-total" id="troca-excedente" style="color: var(--warning);">0</span>
+                            </div>
+                            <div class="linha-resumo">
+                                <span style="color: var(--text-main);">Pagar ao Cliente:</span>
+                                <span class="valor-troco" id="troca-pagar" style="color: var(--danger);">R$ 0,00</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group escondido" id="area-pgto-troca" style="margin-bottom: 20px;">
+                            <label for="pagamento-troca">Como você pagou o excedente?</label>
+                            <select id="pagamento-troca">
+                                <option value="Dinheiro">💵 Dinheiro</option>
+                                <option value="PIX">💠 PIX</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-troca">🔄 Confirmar Troca</button>
+                    </form>
+                </section>
+
+                <section class="form-section">
+                    <h2>📦 Gerenciar Estoque e Dados</h2>
                     
                     <form id="form-estoque">
                         <label style="font-size: 14px; color: var(--text-main);">➕ Dar Entrada (Somar):</label>
@@ -482,7 +452,7 @@
                     <div class="section-divider"></div>
 
                     <form id="form-editar-estoque">
-                        <label style="font-size: 14px; color: var(--text-main);">✏️ Correção Manual (Ajustar para):</label>
+                        <label style="font-size: 14px; color: var(--text-main);">✏️ Correção Manual:</label>
                         <div class="input-row" style="margin-top: 8px;">
                             <div class="input-group">
                                 <label for="edit-pacotes">Pacotes exatos:</label>
@@ -495,17 +465,30 @@
                         </div>
                         <button type="submit" class="btn-editar" id="btn-salvar-edicao">Salvar Correção</button>
                     </form>
+
+                    <div class="section-divider"></div>
+
+                    <h3 style="font-size: 14px; color: var(--text-main); margin-bottom: 5px;">☁ Sincronizar Dispositivos (PC ↔ Celular)</h3>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">
+                        Baixe o arquivo de backup aqui e carregue no outro aparelho para transferir todo o caixa e estoque.
+                    </p>
+                    
+                    <button type="button" id="btn-exportar" class="btn-sync-export">⬇️ Baixar Backup</button>
+                    
+                    <label for="input-importar" class="btn-label btn-sync-import">⬆️ Carregar Backup</label>
+                    <input type="file" id="input-importar" accept=".json" style="display: none;">
+                    
                 </section>
             </aside>
 
             <main class="table-section">
-                <h2>📋 Histórico de Vendas</h2>
+                <h2>📋 Histórico de Operações</h2>
                 <div class="table-wrapper">
                     <table id="tabela-vendas">
                         <thead>
                             <tr>
                                 <th>Data/Hora</th>
-                                <th>Detalhe</th>
+                                <th>Detalhe da Operação</th>
                                 <th>Pgto</th>
                                 <th>Valor Total</th>
                                 <th style="text-align: right;">Troco</th>
@@ -521,28 +504,48 @@
     </div>
 
     <script>
+        // Elementos de Venda
         const formVenda = document.getElementById('form-venda');
-        const formEstoque = document.getElementById('form-estoque');
-        const formEditarEstoque = document.getElementById('form-editar-estoque');
-        
-        const tabelaVendas = document.querySelector('#tabela-vendas tbody');
-        
-        const totalReceitaEl = document.getElementById('total-receita');
-        const estPacotesEl = document.getElementById('est-pacotes');
-        const estAvulsasEl = document.getElementById('est-avulsas');
-        
         const tipoEl = document.getElementById('tipo');
         const quantidadeEl = document.getElementById('quantidade');
         const precoEl = document.getElementById('preco');
+        const checkMisto = document.getElementById('check-misto');
         const pagamentoEl = document.getElementById('pagamento');
+        const areaPgtoMisto = document.getElementById('area-pgto-misto');
+        const pag1El = document.getElementById('pagamento1');
+        const pag2El = document.getElementById('pagamento2');
+        const val1El = document.getElementById('valor1');
+        const val2El = document.getElementById('valor2');
         
-        const areaCalculoTroco = document.getElementById('area-calculo-troco');
+        // Troco
+        const areaDinheiroRecebido = document.getElementById('area-dinheiro-recebido');
+        const areaLinhaTroco = document.getElementById('area-linha-troco');
         const valorRecebidoEl = document.getElementById('valor-recebido');
         const displayTotalVenda = document.getElementById('display-total-venda');
         const displayTroco = document.getElementById('display-troco');
 
+        // Elementos de Troca
+        const formTroca = document.getElementById('form-troca');
+        const qtdRecebidaEl = document.getElementById('qtd-recebida');
+        const trocaPacotesEl = document.getElementById('troca-pacotes');
+        const trocaExcedenteEl = document.getElementById('troca-excedente');
+        const trocaPagarEl = document.getElementById('troca-pagar');
+        const areaPgtoTroca = document.getElementById('area-pgto-troca');
+        const pagamentoTrocaEl = document.getElementById('pagamento-troca');
+
+        // Elementos de Estoque e Dashboard
+        const formEstoque = document.getElementById('form-estoque');
+        const formEditarEstoque = document.getElementById('form-editar-estoque');
+        const tabelaVendas = document.querySelector('#tabela-vendas tbody');
+        const totalReceitaEl = document.getElementById('total-receita');
+        const estPacotesEl = document.getElementById('est-pacotes');
+        const estAvulsasEl = document.getElementById('est-avulsas');
         const editPacotesEl = document.getElementById('edit-pacotes');
         const editAvulsasEl = document.getElementById('edit-avulsas');
+
+        // Sincronização
+        const btnExportar = document.getElementById('btn-exportar');
+        const inputImportar = document.getElementById('input-importar');
 
         // Estado do App
         let totalArrecadado = parseFloat(localStorage.getItem('copa_total')) || 0;
@@ -561,7 +564,9 @@
         function obterClasseBadge(pagamento) {
             if(pagamento === 'Dinheiro') return 'badge-dinheiro';
             if(pagamento === 'PIX') return 'badge-pix';
-            return 'badge-cartao';
+            if(pagamento === 'Cartão') return 'badge-cartao';
+            if(pagamento === 'Misto') return 'badge-misto';
+            return 'badge-troca'; 
         }
 
         function atualizarInterface(novaLinhaIndex = -1) {
@@ -573,19 +578,44 @@
             editAvulsasEl.value = estoqueAvulsas;
 
             tabelaVendas.innerHTML = '';
-            historicoVendas.forEach((venda, index) => {
-                const pagtoSafe = venda.pagamento || 'Dinheiro';
-                const trocoSafe = venda.troco || 0;
+            historicoVendas.forEach((op, index) => {
+                const pagtoSafe = op.pagamento || 'Dinheiro';
+                const trocoSafe = op.troco || 0;
 
+                let htmlDetalhe = '';
+                let htmlTotal = '';
                 let textoTroco = '-';
-                let estiloTroco = 'color: #94a3b8; font-size: 16px; text-align: right;'; 
-                
-                if (pagtoSafe === 'Dinheiro') {
-                    textoTroco = `R$ ${trocoSafe.toFixed(2).replace('.', ',')}`;
-                    if (trocoSafe > 0) {
-                        estiloTroco = 'color: var(--danger); font-weight: 700; text-align: right; font-size: 15px;'; 
+                let estiloTroco = 'color: #94a3b8; font-size: 16px;'; 
+                let pgtoHtml = `<span class="badge ${obterClasseBadge(pagtoSafe)}">${pagtoSafe}</span>`;
+
+                if (op.detalhePgto) {
+                    pgtoHtml += `<div style="font-size: 10px; color: var(--text-muted); margin-top: 5px; line-height: 1.3;">${op.detalhePgto}</div>`;
+                }
+
+                if (op.tipo === 'Troca') {
+                    htmlDetalhe = `
+                        <div style="font-weight: 600; color: var(--accent);">🔄 Troca Realizada</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Entrou: ${op.qtd} Avuls. | Saiu: ${op.pacotesEntregues} Pac.</div>
+                    `;
+                    if (op.total < 0) {
+                        htmlTotal = `<span style="color: var(--danger); font-weight: 700;">- R$ ${Math.abs(op.total).toFixed(2).replace('.', ',')}</span>`;
                     } else {
-                        estiloTroco = 'color: #64748b; font-weight: 500; text-align: right;'; 
+                        htmlTotal = `<span style="color: var(--success); font-weight: 700;">R$ 0,00</span>`;
+                    }
+                } else {
+                    htmlDetalhe = `
+                        <div style="font-weight: 600; color: var(--text-main);">${op.tipo}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">x${op.qtd} un.</div>
+                    `;
+                    htmlTotal = `<span style="font-weight: 700; color: var(--primary-dark);">R$ ${op.total.toFixed(2).replace('.', ',')}</span>`;
+                    
+                    if (pagtoSafe === 'Dinheiro' || pagtoSafe === 'Misto') {
+                        textoTroco = `R$ ${trocoSafe.toFixed(2).replace('.', ',')}`;
+                        if (trocoSafe > 0) {
+                            estiloTroco = 'color: var(--danger); font-weight: 700; font-size: 15px;'; 
+                        } else {
+                            estiloTroco = 'color: #64748b; font-weight: 500;'; 
+                        }
                     }
                 }
 
@@ -593,19 +623,28 @@
                 if (index === novaLinhaIndex) tr.classList.add('nova-venda-anim');
 
                 tr.innerHTML = `
-                    <td style="color: #64748b; font-size: 12px; line-height: 1.4;">
-                        ${venda.data.split(' ')[0]}<br>
-                        <span style="font-weight:600; color:#475569;">${venda.data.split(' ')[1]}</span>
+                    <td data-label="Data/Hora">
+                        <div class="td-content" style="color: #64748b; font-size: 12px; line-height: 1.4;">
+                            ${op.data.split(' ')[0]}<br>
+                            <span style="font-weight:600; color:#475569;">${op.data.split(' ')[1]}</span>
+                        </div>
                     </td>
-                    <td>
-                        <div style="font-weight: 600; color: var(--text-main);">${venda.tipo}</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">x${venda.qtd} un.</div>
+                    <td data-label="Operação">
+                        <div class="td-content">${htmlDetalhe}</div>
                     </td>
-                    <td><span class="badge ${obterClasseBadge(pagtoSafe)}">${pagtoSafe}</span></td>
-                    <td style="font-weight: 700; color: var(--primary-dark);">R$ ${venda.total.toFixed(2).replace('.', ',')}</td>
-                    <td style="${estiloTroco}">${textoTroco}</td>
-                    <td style="text-align: center;">
-                        <button class="btn-excluir" title="Cancelar Venda" onclick="deletarVenda(${index})">Deletar</button>
+                    <td data-label="Pgto">
+                        <div class="td-content">${pgtoHtml}</div>
+                    </td>
+                    <td data-label="Valor">
+                        <div class="td-content">${htmlTotal}</div>
+                    </td>
+                    <td data-label="Troco">
+                        <div class="td-content" style="${estiloTroco}">${textoTroco}</div>
+                    </td>
+                    <td data-label="Ação">
+                        <div class="td-content" style="width: 100%;">
+                            <button class="btn-excluir" title="Desfazer" onclick="deletarVenda(${index})">Cancelar</button>
+                        </div>
                     </td>
                 `;
                 tabelaVendas.appendChild(tr);
@@ -613,14 +652,19 @@
         }
 
         window.deletarVenda = function(index) {
-            if(confirm("⚠ Deseja realmente cancelar esta venda?\nO valor será removido do caixa e os itens voltarão ao estoque.")) {
-                const venda = historicoVendas[index];
+            if(confirm("⚠ Deseja realmente cancelar e desfazer esta operação?")) {
+                const op = historicoVendas[index];
 
-                totalArrecadado -= venda.total;
-                if (totalArrecadado < 0) totalArrecadado = 0; 
-
-                if (venda.tipo === 'Pacote') estoquePacotes += venda.qtd;
-                else if (venda.tipo === 'Avulsa') estoqueAvulsas += venda.qtd;
+                if (op.tipo === 'Troca') {
+                    estoqueAvulsas -= op.qtd; 
+                    estoquePacotes += op.pacotesEntregues; 
+                    totalArrecadado += Math.abs(op.total); 
+                } else {
+                    totalArrecadado -= op.total;
+                    if (totalArrecadado < 0) totalArrecadado = 0; 
+                    if (op.tipo === 'Pacote') estoquePacotes += op.qtd;
+                    else if (op.tipo === 'Avulsa') estoqueAvulsas += op.qtd;
+                }
 
                 historicoVendas.splice(index, 1);
                 salvarDados();
@@ -628,49 +672,103 @@
             }
         };
 
+        // ALTERNÂNCIA (SIMPLES / MISTO)
+        checkMisto.addEventListener('change', function() {
+            if(this.checked) {
+                pagamentoEl.classList.add('escondido');
+                areaPgtoMisto.classList.remove('escondido');
+            } else {
+                pagamentoEl.classList.remove('escondido');
+                areaPgtoMisto.classList.add('escondido');
+            }
+            atualizarResumoVenda();
+        });
+
+        // CÁLCULO VENDA
         function atualizarResumoVenda() {
             const tipo = tipoEl.value;
             const quantidade = parseInt(quantidadeEl.value) || 1;
-            const formaPgto = pagamentoEl.value;
-
-            areaCalculoTroco.classList.toggle('escondido', formaPgto !== 'Dinheiro');
+            const isMisto = checkMisto.checked;
 
             if (tipo === 'Pacote') precoEl.value = quantidade >= 10 ? '6.00' : '7.00';
             else if (tipo === 'Avulsa') precoEl.value = '1.00'; 
 
             const preco = parseFloat(precoEl.value);
             const totalCompra = quantidade * preco;
-            
             displayTotalVenda.textContent = `R$ ${totalCompra.toFixed(2).replace('.', ',')}`;
 
-            if (formaPgto === 'Dinheiro') {
-                const recebido = parseFloat(valorRecebidoEl.value);
-                if (!isNaN(recebido) && recebido > 0) {
-                    const troco = recebido - totalCompra;
-                    
-                    if (troco < 0) {
-                        displayTroco.textContent = `Falta R$ ${Math.abs(troco).toFixed(2).replace('.', ',')}`;
-                        displayTroco.style.color = "var(--danger)"; 
-                        trocoAtual = 0; 
-                    } else {
-                        displayTroco.textContent = `R$ ${troco.toFixed(2).replace('.', ',')}`;
-                        displayTroco.style.color = "var(--success)"; 
-                        trocoAtual = troco; 
-                    }
+            if (isMisto) {
+                areaDinheiroRecebido.classList.add('escondido'); 
+                areaLinhaTroco.classList.remove('escondido'); 
+
+                const v1 = parseFloat(val1El.value) || 0;
+                const v2 = parseFloat(val2El.value) || 0;
+                const recebidoTotal = v1 + v2;
+                
+                const troco = recebidoTotal - totalCompra;
+                if (troco < 0) {
+                    displayTroco.textContent = `Falta R$ ${Math.abs(troco).toFixed(2).replace('.', ',')}`;
+                    displayTroco.style.color = "var(--danger)"; 
+                    trocoAtual = 0; 
                 } else {
-                    displayTroco.textContent = `R$ 0,00`;
-                    displayTroco.style.color = "var(--text-main)";
-                    trocoAtual = 0;
+                    displayTroco.textContent = `R$ ${troco.toFixed(2).replace('.', ',')}`;
+                    displayTroco.style.color = "var(--success)"; 
+                    trocoAtual = troco; 
                 }
             } else {
-                trocoAtual = 0; 
+                const formaPgto = pagamentoEl.value;
+                if (formaPgto === 'Dinheiro') {
+                    areaDinheiroRecebido.classList.remove('escondido');
+                    areaLinhaTroco.classList.remove('escondido');
+
+                    const recebido = parseFloat(valorRecebidoEl.value);
+                    if (!isNaN(recebido) && recebido > 0) {
+                        const troco = recebido - totalCompra;
+                        if (troco < 0) {
+                            displayTroco.textContent = `Falta R$ ${Math.abs(troco).toFixed(2).replace('.', ',')}`;
+                            displayTroco.style.color = "var(--danger)"; 
+                            trocoAtual = 0; 
+                        } else {
+                            displayTroco.textContent = `R$ ${troco.toFixed(2).replace('.', ',')}`;
+                            displayTroco.style.color = "var(--success)"; 
+                            trocoAtual = troco; 
+                        }
+                    } else {
+                        displayTroco.textContent = `R$ 0,00`;
+                        displayTroco.style.color = "var(--text-main)";
+                        trocoAtual = 0;
+                    }
+                } else {
+                    areaDinheiroRecebido.classList.add('escondido');
+                    areaLinhaTroco.classList.add('escondido');
+                    trocoAtual = 0; 
+                }
             }
         }
 
+        // CÁLCULO TROCA
+        function atualizarResumoTroca() {
+            const recebidas = parseInt(qtdRecebidaEl.value) || 0;
+            const pacotes = Math.floor(recebidas / 7);
+            const excedente = recebidas % 7;
+            const valorPagar = excedente * 1.00;
+
+            trocaPacotesEl.textContent = pacotes;
+            trocaExcedenteEl.textContent = excedente;
+            trocaPagarEl.textContent = `R$ ${valorPagar.toFixed(2).replace('.', ',')}`;
+
+            if (excedente > 0) areaPgtoTroca.classList.remove('escondido');
+            else areaPgtoTroca.classList.add('escondido');
+        }
+
+        // Eventos
         tipoEl.addEventListener('change', atualizarResumoVenda);
         quantidadeEl.addEventListener('input', atualizarResumoVenda);
         pagamentoEl.addEventListener('change', atualizarResumoVenda);
         valorRecebidoEl.addEventListener('input', atualizarResumoVenda);
+        val1El.addEventListener('input', atualizarResumoVenda);
+        val2El.addEventListener('input', atualizarResumoVenda);
+        qtdRecebidaEl.addEventListener('input', atualizarResumoTroca);
 
         formEstoque.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -687,10 +785,8 @@
 
         formEditarEstoque.addEventListener('submit', function(e) {
             e.preventDefault();
-            
             estoquePacotes = parseInt(editPacotesEl.value);
             estoqueAvulsas = parseInt(editAvulsasEl.value);
-
             salvarDados();
             atualizarInterface();
             
@@ -698,26 +794,24 @@
             const textoOriginal = btn.textContent;
             btn.innerHTML = "✔ Salvo!";
             btn.style.backgroundColor = "var(--success)";
-            btn.style.color = "white";
-            btn.style.borderColor = "var(--success)";
-            
             setTimeout(() => {
                 btn.textContent = textoOriginal;
-                btn.style.backgroundColor = "";
-                btn.style.color = "";
-                btn.style.borderColor = "";
+                btn.style.backgroundColor = "white";
             }, 2000);
         });
 
+        // SUBMIT VENDA
         formVenda.addEventListener('submit', function(e) {
             e.preventDefault();
-
             const tipo = tipoEl.value;
             const quantidade = parseInt(quantidadeEl.value);
             const preco = parseFloat(precoEl.value);
-            const formaPgto = pagamentoEl.value;
+            const isMisto = checkMisto.checked;
             const totalVenda = quantidade * preco;
-            const recebido = parseFloat(valorRecebidoEl.value) || 0;
+            
+            let formaPgto = pagamentoEl.value;
+            let detalheExtra = "";
+            let recebidoValidacao = 0;
 
             if (tipo === 'Pacote' && quantidade > estoquePacotes) {
                 alert(`❌ Estoque insuficiente!\nVocê possui apenas ${estoquePacotes} pacotes.`);
@@ -728,9 +822,28 @@
                 return;
             }
 
-            if (formaPgto === 'Dinheiro' && recebido > 0 && recebido < totalVenda) {
-                alert("⚠ O dinheiro recebido é menor que o total da venda!");
-                return; 
+            if (isMisto) {
+                const p1 = pag1El.value;
+                const p2 = pag2El.value;
+                const v1 = parseFloat(val1El.value) || 0;
+                const v2 = parseFloat(val2El.value) || 0;
+                
+                recebidoValidacao = v1 + v2;
+                
+                if (recebidoValidacao < totalVenda) {
+                    alert("⚠ A soma dos valores está menor que o total da venda!");
+                    return;
+                }
+
+                formaPgto = 'Misto';
+                detalheExtra = `<b>${p1}:</b> R$ ${v1.toFixed(2).replace('.', ',')} <br> <b>${p2}:</b> R$ ${v2.toFixed(2).replace('.', ',')}`;
+
+            } else {
+                recebidoValidacao = parseFloat(valorRecebidoEl.value) || 0;
+                if (formaPgto === 'Dinheiro' && recebidoValidacao > 0 && recebidoValidacao < totalVenda) {
+                    alert("⚠ O dinheiro recebido é menor que o total da venda!");
+                    return; 
+                }
             }
 
             if (tipo === 'Pacote') estoquePacotes -= quantidade;
@@ -741,30 +854,124 @@
             const dataAtual = new Date();
             const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
 
-            const novaVenda = {
-                data: formatData,
-                tipo: tipo,
-                qtd: quantidade,
-                preco: preco,
-                total: totalVenda,
-                pagamento: formaPgto,
-                troco: trocoAtual
-            };
+            historicoVendas.unshift({
+                data: formatData, tipo: tipo, qtd: quantidade, preco: preco,
+                total: totalVenda, pagamento: formaPgto, detalhePgto: detalheExtra, troco: trocoAtual
+            });
             
-            historicoVendas.unshift(novaVenda);
-
             salvarDados();
-            atualizarInterface(0);
+            atualizarInterface(0); 
             
             quantidadeEl.value = 1;
-            valorRecebidoEl.value = ''; 
-            atualizarResumoVenda();
+            valorRecebidoEl.value = ''; val1El.value = ''; val2El.value = '';
             
+            if (isMisto) {
+                checkMisto.checked = false;
+                pagamentoEl.classList.remove('escondido');
+                areaPgtoMisto.classList.add('escondido');
+            }
+
+            atualizarResumoVenda();
             quantidadeEl.focus();
         });
 
-        // Init
+        // SUBMIT TROCA
+        formTroca.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const recebidas = parseInt(qtdRecebidaEl.value) || 0;
+            
+            if (recebidas < 7) {
+                alert("⚠ É necessário receber pelo menos 7 figurinhas para fazer uma troca.");
+                return;
+            }
+
+            const pacotes = Math.floor(recebidas / 7);
+            const excedente = recebidas % 7;
+            const valorPagar = excedente * 1.00;
+            const formaPgto = pagamentoTrocaEl.value;
+
+            if (pacotes > estoquePacotes) {
+                alert(`❌ Estoque insuficiente!\nVocê precisa de ${pacotes} pacotes para entregar, mas possui apenas ${estoquePacotes}.`);
+                return;
+            }
+
+            estoqueAvulsas += recebidas;
+            estoquePacotes -= pacotes;
+            totalArrecadado -= valorPagar;
+
+            const dataAtual = new Date();
+            const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+            historicoVendas.unshift({
+                data: formatData, tipo: 'Troca', qtd: recebidas, pacotesEntregues: pacotes,
+                total: valorPagar * -1, pagamento: excedente > 0 ? formaPgto : '-', detalhePgto: '', troco: 0
+            });
+            
+            salvarDados();
+            atualizarInterface(0);
+            qtdRecebidaEl.value = '';
+            atualizarResumoTroca();
+            qtdRecebidaEl.focus();
+        });
+
+        // ====== LÓGICA DE EXPORTAÇÃO E IMPORTAÇÃO (BACKUP) ======
+        
+        btnExportar.addEventListener('click', function() {
+            const dadosParaExportar = {
+                total: totalArrecadado,
+                pacotes: estoquePacotes,
+                avulsas: estoqueAvulsas,
+                historico: historicoVendas
+            };
+            
+            // Cria o arquivo JSON
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dadosParaExportar));
+            const dataHoje = new Date().toISOString().split('T')[0];
+            
+            // Simula o clique de download
+            const tagDownload = document.createElement('a');
+            tagDownload.setAttribute("href", dataStr);
+            tagDownload.setAttribute("download", `pdv-copa-backup-${dataHoje}.json`);
+            document.body.appendChild(tagDownload);
+            tagDownload.click();
+            tagDownload.remove();
+        });
+
+        inputImportar.addEventListener('change', function(event) {
+            const arquivo = event.target.files[0];
+            if (!arquivo) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const dadosImportados = JSON.parse(e.target.result);
+                    
+                    // Validação simples para ver se o arquivo é válido
+                    if (dadosImportados && typeof dadosImportados.total !== 'undefined') {
+                        totalArrecadado = dadosImportados.total;
+                        estoquePacotes = dadosImportados.pacotes;
+                        estoqueAvulsas = dadosImportados.avulsas;
+                        historicoVendas = dadosImportados.historico || [];
+                        
+                        salvarDados();
+                        atualizarInterface();
+                        alert("✅ Dados sincronizados com sucesso!");
+                    } else {
+                        alert("❌ Arquivo inválido. Certifique-se de que é um backup deste sistema.");
+                    }
+                } catch (erro) {
+                    alert("❌ Ocorreu um erro ao ler o arquivo de backup.");
+                }
+            };
+            reader.readAsText(arquivo);
+            
+            // Reseta o input para permitir importar o mesmo arquivo novamente se necessário
+            event.target.value = '';
+        });
+
+        // Init App
         atualizarResumoVenda();
+        atualizarResumoTroca();
         atualizarInterface();
     </script>
 </body>
