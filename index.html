@@ -68,7 +68,7 @@
 
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
         }
 
@@ -109,7 +109,7 @@
         }
 
         .card p {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
         }
 
@@ -246,9 +246,9 @@
         .btn-sync-export { background-color: #3b82f6; color: white; margin-bottom: 10px; }
         .btn-sync-import { background-color: #8b5cf6; color: white; }
 
-        .table-wrapper { width: 100%; overflow: hidden; }
+        .table-wrapper { width: 100%; overflow: auto; }
 
-        table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; min-width: 600px; }
         th { background-color: #f8fafc; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 12px; padding: 15px 10px; text-align: left; border-bottom: 2px solid var(--border); }
         td { padding: 15px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         tr:last-child td { border-bottom: none; }
@@ -274,7 +274,7 @@
             .input-row { flex-direction: column; gap: 0; margin-bottom: 0; }
             .input-row .input-group { margin-bottom: 15px; }
 
-            table, thead, tbody, th, td, tr { display: block; width: 100%; }
+            table, thead, tbody, th, td, tr { display: block; width: 100%; min-width: auto; }
             thead tr { position: absolute; top: -9999px; left: -9999px; }
             tr { background-color: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; margin-bottom: 15px; padding: 10px; }
             td { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding: 10px 5px; }
@@ -292,11 +292,19 @@
             <h1>⚽ PDV - Copa 2026</h1>
             <div class="dashboard">
                 <div class="card receita">
-                    <h3>Total Arrecadado</h3>
+                    <h3>Receita Bruta</h3>
                     <p id="total-receita">R$ 0,00</p>
                 </div>
+                <div class="card" style="background: linear-gradient(135deg, #ef4444, #991b1b);">
+                    <h3>Custo Total</h3>
+                    <p id="total-custo">R$ 0,00</p>
+                </div>
+                <div class="card" style="background: linear-gradient(135deg, #10b981, #047857);">
+                    <h3>Lucro Líquido</h3>
+                    <p id="total-lucro">R$ 0,00</p>
+                </div>
                 <div class="card pacotes">
-                    <h3>Estoque de Pacotes</h3>
+                    <h3>Estoque Pacotes</h3>
                     <p id="est-pacotes">0</p>
                 </div>
                 <div class="card avulsas">
@@ -468,7 +476,7 @@
 
                     <div class="section-divider"></div>
 
-                    <h3 style="font-size: 14px; color: var(--text-main); margin-bottom: 5px;">☁ Sincronizar Dispositivos (PC ↔ Celular)</h3>
+                    <h3 style="font-size: 14px; color: var(--text-main); margin-bottom: 5px;">☁ Sincronizar Dispositivos</h3>
                     <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">
                         Baixe o arquivo de backup aqui e carregue no outro aparelho para transferir todo o caixa e estoque.
                     </p>
@@ -496,7 +504,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </main>
@@ -537,7 +545,11 @@
         const formEstoque = document.getElementById('form-estoque');
         const formEditarEstoque = document.getElementById('form-editar-estoque');
         const tabelaVendas = document.querySelector('#tabela-vendas tbody');
+        
         const totalReceitaEl = document.getElementById('total-receita');
+        const totalCustoEl = document.getElementById('total-custo'); 
+        const totalLucroEl = document.getElementById('total-lucro'); 
+        
         const estPacotesEl = document.getElementById('est-pacotes');
         const estAvulsasEl = document.getElementById('est-avulsas');
         const editPacotesEl = document.getElementById('edit-pacotes');
@@ -549,6 +561,7 @@
 
         // Estado do App
         let totalArrecadado = parseFloat(localStorage.getItem('copa_total')) || 0;
+        let custoTotal = parseFloat(localStorage.getItem('copa_custo')) || 0; 
         let estoquePacotes = parseInt(localStorage.getItem('copa_pacotes')) || 0;
         let estoqueAvulsas = parseInt(localStorage.getItem('copa_avulsas')) || 0;
         let historicoVendas = JSON.parse(localStorage.getItem('copa_historico')) || [];
@@ -556,9 +569,14 @@
 
         function salvarDados() {
             localStorage.setItem('copa_total', totalArrecadado);
+            localStorage.setItem('copa_custo', custoTotal); 
             localStorage.setItem('copa_pacotes', estoquePacotes);
             localStorage.setItem('copa_avulsas', estoqueAvulsas);
             localStorage.setItem('copa_historico', JSON.stringify(historicoVendas));
+        }
+
+        function formatarBRL(valor) {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
 
         function obterClasseBadge(pagamento) {
@@ -570,7 +588,11 @@
         }
 
         function atualizarInterface(novaLinhaIndex = -1) {
-            totalReceitaEl.textContent = `R$ ${totalArrecadado.toFixed(2).replace('.', ',')}`;
+            // Atualiza os Cards
+            totalReceitaEl.textContent = formatarBRL(totalArrecadado);
+            totalCustoEl.textContent = formatarBRL(custoTotal);
+            totalLucroEl.textContent = formatarBRL(totalArrecadado - custoTotal);
+            
             estPacotesEl.textContent = estoquePacotes;
             estAvulsasEl.textContent = estoqueAvulsas;
 
@@ -598,7 +620,7 @@
                         <div style="font-size: 12px; color: var(--text-muted);">Entrou: ${op.qtd} Avuls. | Saiu: ${op.pacotesEntregues} Pac.</div>
                     `;
                     if (op.total < 0) {
-                        htmlTotal = `<span style="color: var(--danger); font-weight: 700;">- R$ ${Math.abs(op.total).toFixed(2).replace('.', ',')}</span>`;
+                        htmlTotal = `<span style="color: var(--danger); font-weight: 700;">- ${formatarBRL(Math.abs(op.total))}</span>`;
                     } else {
                         htmlTotal = `<span style="color: var(--success); font-weight: 700;">R$ 0,00</span>`;
                     }
@@ -607,10 +629,10 @@
                         <div style="font-weight: 600; color: var(--text-main);">${op.tipo}</div>
                         <div style="font-size: 12px; color: var(--text-muted);">x${op.qtd} un.</div>
                     `;
-                    htmlTotal = `<span style="font-weight: 700; color: var(--primary-dark);">R$ ${op.total.toFixed(2).replace('.', ',')}</span>`;
+                    htmlTotal = `<span style="font-weight: 700; color: var(--primary-dark);">${formatarBRL(op.total)}</span>`;
                     
                     if (pagtoSafe === 'Dinheiro' || pagtoSafe === 'Misto') {
-                        textoTroco = `R$ ${trocoSafe.toFixed(2).replace('.', ',')}`;
+                        textoTroco = formatarBRL(trocoSafe);
                         if (trocoSafe > 0) {
                             estiloTroco = 'color: var(--danger); font-weight: 700; font-size: 15px;'; 
                         } else {
@@ -658,10 +680,15 @@
                 if (op.tipo === 'Troca') {
                     estoqueAvulsas -= op.qtd; 
                     estoquePacotes += op.pacotesEntregues; 
-                    totalArrecadado += Math.abs(op.total); 
+                    totalArrecadado -= Math.abs(op.total); 
+                    custoTotal -= (op.custo || 0); 
                 } else {
                     totalArrecadado -= op.total;
+                    custoTotal -= (op.custo || 0); 
+                    
                     if (totalArrecadado < 0) totalArrecadado = 0; 
+                    if (custoTotal < 0) custoTotal = 0; 
+
                     if (op.tipo === 'Pacote') estoquePacotes += op.qtd;
                     else if (op.tipo === 'Avulsa') estoqueAvulsas += op.qtd;
                 }
@@ -693,9 +720,9 @@
             if (tipo === 'Pacote') precoEl.value = quantidade >= 10 ? '6.00' : '7.00';
             else if (tipo === 'Avulsa') precoEl.value = '1.00'; 
 
-            const preco = parseFloat(precoEl.value);
+            const preco = parseFloat(precoEl.value) || 0;
             const totalCompra = quantidade * preco;
-            displayTotalVenda.textContent = `R$ ${totalCompra.toFixed(2).replace('.', ',')}`;
+            displayTotalVenda.textContent = formatarBRL(totalCompra);
 
             if (isMisto) {
                 areaDinheiroRecebido.classList.add('escondido'); 
@@ -706,14 +733,18 @@
                 const recebidoTotal = v1 + v2;
                 
                 const troco = recebidoTotal - totalCompra;
-                if (troco < 0) {
-                    displayTroco.textContent = `Falta R$ ${Math.abs(troco).toFixed(2).replace('.', ',')}`;
+                if (troco < 0 && recebidoTotal > 0) {
+                    displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`;
                     displayTroco.style.color = "var(--danger)"; 
                     trocoAtual = 0; 
-                } else {
-                    displayTroco.textContent = `R$ ${troco.toFixed(2).replace('.', ',')}`;
+                } else if (recebidoTotal > 0) {
+                    displayTroco.textContent = formatarBRL(troco);
                     displayTroco.style.color = "var(--success)"; 
                     trocoAtual = troco; 
+                } else {
+                    displayTroco.textContent = formatarBRL(0);
+                    displayTroco.style.color = "var(--text-main)"; 
+                    trocoAtual = 0;
                 }
             } else {
                 const formaPgto = pagamentoEl.value;
@@ -725,16 +756,16 @@
                     if (!isNaN(recebido) && recebido > 0) {
                         const troco = recebido - totalCompra;
                         if (troco < 0) {
-                            displayTroco.textContent = `Falta R$ ${Math.abs(troco).toFixed(2).replace('.', ',')}`;
+                            displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`;
                             displayTroco.style.color = "var(--danger)"; 
                             trocoAtual = 0; 
                         } else {
-                            displayTroco.textContent = `R$ ${troco.toFixed(2).replace('.', ',')}`;
+                            displayTroco.textContent = formatarBRL(troco);
                             displayTroco.style.color = "var(--success)"; 
                             trocoAtual = troco; 
                         }
                     } else {
-                        displayTroco.textContent = `R$ 0,00`;
+                        displayTroco.textContent = formatarBRL(0);
                         displayTroco.style.color = "var(--text-main)";
                         trocoAtual = 0;
                     }
@@ -755,7 +786,7 @@
 
             trocaPacotesEl.textContent = pacotes;
             trocaExcedenteEl.textContent = excedente;
-            trocaPagarEl.textContent = `R$ ${valorPagar.toFixed(2).replace('.', ',')}`;
+            trocaPagarEl.textContent = formatarBRL(valorPagar);
 
             if (excedente > 0) areaPgtoTroca.classList.remove('escondido');
             else areaPgtoTroca.classList.add('escondido');
@@ -805,7 +836,7 @@
             e.preventDefault();
             const tipo = tipoEl.value;
             const quantidade = parseInt(quantidadeEl.value);
-            const preco = parseFloat(precoEl.value);
+            const preco = parseFloat(precoEl.value) || 0;
             const isMisto = checkMisto.checked;
             const totalVenda = quantidade * preco;
             
@@ -836,7 +867,7 @@
                 }
 
                 formaPgto = 'Misto';
-                detalheExtra = `<b>${p1}:</b> R$ ${v1.toFixed(2).replace('.', ',')} <br> <b>${p2}:</b> R$ ${v2.toFixed(2).replace('.', ',')}`;
+                detalheExtra = `<b>${p1}:</b> ${formatarBRL(v1)} <br> <b>${p2}:</b> ${formatarBRL(v2)}`;
 
             } else {
                 recebidoValidacao = parseFloat(valorRecebidoEl.value) || 0;
@@ -846,17 +877,27 @@
                 }
             }
 
+            // --- CÁLCULO DE CUSTO ---
+            let custoUnitario = 0;
+            if (tipo === 'Pacote') {
+                custoUnitario = 5.05;
+            } else if (tipo === 'Avulsa') {
+                custoUnitario = 0; 
+            }
+            const custoDaOperacao = quantidade * custoUnitario;
+
             if (tipo === 'Pacote') estoquePacotes -= quantidade;
             else if (tipo === 'Avulsa') estoqueAvulsas -= quantidade;
 
             totalArrecadado += totalVenda;
+            custoTotal += custoDaOperacao; 
 
             const dataAtual = new Date();
             const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
 
             historicoVendas.unshift({
                 data: formatData, tipo: tipo, qtd: quantidade, preco: preco,
-                total: totalVenda, pagamento: formaPgto, detalhePgto: detalheExtra, troco: trocoAtual
+                total: totalVenda, custo: custoDaOperacao, pagamento: formaPgto, detalhePgto: detalheExtra, troco: trocoAtual
             });
             
             salvarDados();
@@ -895,16 +936,19 @@
                 return;
             }
 
+            const custoDaTroca = pacotes * 5.05; 
+
             estoqueAvulsas += recebidas;
             estoquePacotes -= pacotes;
             totalArrecadado -= valorPagar;
+            custoTotal += custoDaTroca;
 
             const dataAtual = new Date();
             const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
 
             historicoVendas.unshift({
                 data: formatData, tipo: 'Troca', qtd: recebidas, pacotesEntregues: pacotes,
-                total: valorPagar * -1, pagamento: excedente > 0 ? formaPgto : '-', detalhePgto: '', troco: 0
+                total: valorPagar * -1, custo: custoDaTroca, pagamento: excedente > 0 ? formaPgto : '-', detalhePgto: '', troco: 0
             });
             
             salvarDados();
@@ -919,16 +963,15 @@
         btnExportar.addEventListener('click', function() {
             const dadosParaExportar = {
                 total: totalArrecadado,
+                custo: custoTotal,
                 pacotes: estoquePacotes,
                 avulsas: estoqueAvulsas,
                 historico: historicoVendas
             };
             
-            // Cria o arquivo JSON
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dadosParaExportar));
-            const dataHoje = new Date().toISOString().split('T')[0];
+            const dataHoje = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
             
-            // Simula o clique de download
             const tagDownload = document.createElement('a');
             tagDownload.setAttribute("href", dataStr);
             tagDownload.setAttribute("download", `pdv-copa-backup-${dataHoje}.json`);
@@ -946,9 +989,9 @@
                 try {
                     const dadosImportados = JSON.parse(e.target.result);
                     
-                    // Validação simples para ver se o arquivo é válido
                     if (dadosImportados && typeof dadosImportados.total !== 'undefined') {
                         totalArrecadado = dadosImportados.total;
+                        custoTotal = dadosImportados.custo || 0; 
                         estoquePacotes = dadosImportados.pacotes;
                         estoqueAvulsas = dadosImportados.avulsas;
                         historicoVendas = dadosImportados.historico || [];
@@ -964,8 +1007,6 @@
                 }
             };
             reader.readAsText(arquivo);
-            
-            // Reseta o input para permitir importar o mesmo arquivo novamente se necessário
             event.target.value = '';
         });
 
