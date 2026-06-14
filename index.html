@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#009c3b">
+    <meta name="theme-color" content="#004d1d">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PDV Copa">
@@ -11,23 +11,25 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23009c3b'/><text y='54' x='50' fill='white' font-size='55' dominant-baseline='middle' text-anchor='middle'>⚽</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23009c3b'/><text y='54' x='50' fill='white' font-size='55' dominant-baseline='middle' text-anchor='middle'>⚽</text></svg>">
 
-    <title>PDV Figurinhas - Copa 2026</title>
+    <title>PDV Copa 2026 - Liquid Glass</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #009c3b;       
-            --primary-dark: #007a2e;
             --secondary: #ffdf00;     
             --accent: #002776;        
-            --bg-color: #f1f5f9;      
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
+            --danger: #ff4757;
+            --success: #2ed573;
+            --warning: #ffa502;
+            
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --text-dark: #1e293b;
         }
 
         * {
@@ -38,9 +40,18 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background: linear-gradient(-45deg, #004d1d, #00133a, #007a2e, #002776);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: var(--text-main);
             padding-bottom: 40px;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -58,228 +69,148 @@
             text-align: center;
             font-weight: 700;
             font-size: 32px;
-            margin-bottom: 25px;
-            color: var(--text-main);
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
 
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
+        .btn-toggle {
+            display: flex;
+            margin: 0 auto 25px auto;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
             color: white;
-            padding: 25px 20px;
-            border-radius: 16px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover { transform: translateY(-5px); }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 150px;
-            height: 150px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-        }
-
-        .card.receita { background: linear-gradient(135deg, var(--primary), #05c46b); }
-        .card.pacotes { background: linear-gradient(135deg, var(--accent), #3867d6); }
-        .card.avulsas { background: linear-gradient(135deg, var(--warning), #fa8231); }
-
-        .card h3 {
-            font-size: 14px;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            opacity: 0.9;
-        }
-
-        .card p {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        @media (min-width: 900px) {
-            .grid-layout { grid-template-columns: 380px 1fr; }
-        }
-
-        .form-section, .table-section {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-
-        .form-section h2, .table-section h2 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .section-divider {
-            margin: 25px 0 20px 0;
-            border-bottom: 1px dashed var(--border);
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .input-row .input-group {
-            flex: 1;
-            margin-bottom: 0;
-        }
-
-        label {
+            padding: 8px 20px;
+            border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 5px;
+            cursor: pointer;
+            width: auto;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
+
+        .btn-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .secao-admin { display: none !important; }
+        
+        .grid-layout { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+        aside { width: 100%; max-width: 450px; } 
+
+        @media (min-width: 900px) {
+            body.admin-ativo .grid-layout { display: grid; grid-template-columns: 380px 1fr; align-items: start; }
+            body.admin-ativo aside { max-width: none; }
+        }
+
+        body.admin-ativo .secao-admin { display: block !important; }
+        body.admin-ativo .dashboard.secao-admin { display: grid !important; }
+
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .card { padding: 20px; position: relative; overflow: hidden; transition: transform 0.3s ease, background 0.3s ease; }
+        .card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.15); }
+
+        .card.receita { background: linear-gradient(135deg, rgba(0, 156, 59, 0.4), rgba(5, 196, 107, 0.2)); }
+        .card.custo { background: linear-gradient(135deg, rgba(239, 68, 68, 0.4), rgba(153, 27, 27, 0.2)); }
+        .card.lucro { background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), rgba(4, 120, 87, 0.2)); }
+        .card.pacotes { background: linear-gradient(135deg, rgba(0, 39, 118, 0.4), rgba(56, 103, 214, 0.2)); }
+        .card.avulsas { background: linear-gradient(135deg, rgba(245, 158, 11, 0.4), rgba(250, 130, 49, 0.2)); }
+
+        .card h3 { font-size: 13px; text-transform: uppercase; font-weight: 600; margin-bottom: 5px; letter-spacing: 1px; color: var(--text-muted); }
+        .card p { font-size: 26px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+
+        .form-section, .table-section { padding: 25px; margin-bottom: 25px; width: 100%; }
+        .form-section h2, .table-section h2 { font-size: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
+        .section-divider { margin: 25px 0 20px 0; border-bottom: 1px dashed var(--glass-border); }
+        .input-group { margin-bottom: 15px; display: flex; flex-direction: column; width: 100%; }
+        .input-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .input-row .input-group { flex: 1; margin-bottom: 0; }
+
+        label { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
 
         input, select {
-            padding: 12px 15px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 15px;
-            color: var(--text-main);
-            background-color: #f8fafc;
-            outline: none;
-            width: 100%;
+            padding: 12px 15px; border: 1px solid var(--glass-border); border-radius: 8px; font-size: 15px; color: white; background-color: rgba(0, 0, 0, 0.2); outline: none; width: 100%; transition: all 0.3s;
         }
+        option { background: var(--text-dark); color: white; }
+        input:focus, select:focus { border-color: var(--secondary); background-color: rgba(0, 0, 0, 0.4); box-shadow: 0 0 10px rgba(255, 223, 0, 0.3); }
+        input[readonly] { background-color: rgba(255, 255, 255, 0.05); cursor: not-allowed; color: var(--text-muted); }
 
-        input:focus, select:focus {
-            border-color: var(--primary);
-            background-color: #fff;
-        }
-
-        input[readonly] {
-            background-color: #e2e8f0;
-            cursor: not-allowed;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .painel-troco {
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .linha-resumo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .linha-resumo:last-child {
-            margin-bottom: 0;
-            padding-top: 15px;
-            border-top: 2px dashed #cbd5e1;
-        }
-
-        .valor-total { font-size: 20px; font-weight: 700; color: var(--accent); }
+        .painel-troco { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .linha-resumo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 15px; font-weight: 500; }
+        .linha-resumo:last-child { margin-bottom: 0; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.2); }
+        .valor-total { font-size: 20px; font-weight: 700; color: var(--secondary); text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .valor-troco { font-size: 22px; font-weight: 700; }
-
         .escondido { display: none !important; }
 
-        button, .btn-label {
-            border: none;
-            padding: 14px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            font-size: 16px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s;
+        button:not(.btn-toggle), .btn-label {
+            border: 1px solid rgba(255,255,255,0.3); padding: 14px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.2s; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
+        button:not(.btn-toggle):active, .btn-label:active { transform: scale(0.98); }
+        button:not(.btn-toggle):hover, .btn-label:hover { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
-        button:active, .btn-label:active { transform: scale(0.98); }
-
-        .btn-venda { background-color: var(--primary); color: white; }
-        .btn-troca { background-color: var(--accent); color: white; }
-        .btn-estoque { background-color: var(--text-main); color: white; margin-top: 10px; }
-        .btn-editar { background-color: white; color: var(--text-main); border: 2px solid var(--border); }
-        .btn-excluir { background-color: #fee2e2; color: var(--danger); padding: 6px 12px; font-size: 12px; border-radius: 6px; width: auto; }
+        .btn-venda { background: linear-gradient(135deg, rgba(0, 156, 59, 0.8), rgba(0, 122, 46, 0.9)); color: white; }
+        .btn-troca { background: linear-gradient(135deg, rgba(0, 39, 118, 0.8), rgba(0, 19, 58, 0.9)); color: white; }
+        .btn-estoque { background: rgba(255, 255, 255, 0.1); color: white; margin-top: 10px; }
+        .btn-editar { background: rgba(0, 0, 0, 0.3); color: white; }
+        .btn-excluir { background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255,71,87,0.5); color: #ff6b81; padding: 6px 12px; font-size: 12px; border-radius: 6px; width: auto; text-shadow: none; }
+        .btn-excluir:hover { background: rgba(255, 71, 87, 0.4); color: white; }
         
-        .btn-sync-export { background-color: #3b82f6; color: white; margin-bottom: 10px; }
-        .btn-sync-import { background-color: #8b5cf6; color: white; }
+        .btn-sync-export { background: rgba(59, 130, 246, 0.4); color: white; margin-bottom: 10px; }
+        .btn-sync-import { background: rgba(139, 92, 246, 0.4); color: white; }
 
         .table-wrapper { width: 100%; overflow: auto; }
-
         table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; min-width: 600px; }
-        th { background-color: #f8fafc; color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 12px; padding: 15px 10px; text-align: left; border-bottom: 2px solid var(--border); }
-        td { padding: 15px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        th { background-color: rgba(0,0,0,0.3); color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 12px; padding: 15px 10px; text-align: left; border-bottom: 1px solid var(--glass-border); }
+        td { padding: 15px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); vertical-align: middle; }
         tr:last-child td { border-bottom: none; }
-        tr:hover { background-color: #f8fafc; }
+        tr:hover { background-color: rgba(255,255,255,0.05); }
 
-        .badge { padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; text-align: center; min-width: 75px; }
-        .badge-dinheiro { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-        .badge-pix { background-color: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
-        .badge-cartao { background-color: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
-        .badge-troca { background-color: #f3f4f6; color: #4b5563; border: 1px solid #e5e7eb; }
-        .badge-misto { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+        .badge { padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; text-align: center; min-width: 75px; text-shadow: none; }
+        .badge-dinheiro { background-color: rgba(46, 213, 115, 0.2); color: #7bed9f; border: 1px solid rgba(46, 213, 115, 0.5); }
+        .badge-pix { background-color: rgba(56, 103, 214, 0.2); color: #a4b0be; border: 1px solid rgba(56, 103, 214, 0.5); }
+        .badge-cartao { background-color: rgba(255, 165, 2, 0.2); color: #eccc68; border: 1px solid rgba(255, 165, 2, 0.5); }
+        .badge-troca { background-color: rgba(255, 255, 255, 0.1); color: #dfe4ea; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .badge-misto { background-color: rgba(156, 136, 255, 0.2); color: #dcdde1; border: 1px solid rgba(156, 136, 255, 0.5); }
 
+        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 10px; animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards; font-weight: 500; font-size: 14px; }
+
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .nova-venda-anim { animation: fadeInDown 0.4s ease forwards; }
+        .nova-venda-anim { animation: fadeInDown 0.4s ease forwards; background-color: rgba(255, 255, 255, 0.1); }
 
-        /* VISÃO MOBILE */
         @media (max-width: 768px) {
             .container { padding: 10px; }
             h1 { font-size: 24px; margin-bottom: 15px; }
-            .dashboard { grid-template-columns: 1fr; gap: 15px; }
-            .card { padding: 20px 15px; }
+            .dashboard { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .card { padding: 15px; }
+            .card p { font-size: 20px; }
             .form-section, .table-section { padding: 15px; }
             .input-row { flex-direction: column; gap: 0; margin-bottom: 0; }
             .input-row .input-group { margin-bottom: 15px; }
-
             table, thead, tbody, th, td, tr { display: block; width: 100%; min-width: auto; }
             thead tr { position: absolute; top: -9999px; left: -9999px; }
-            tr { background-color: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; margin-bottom: 15px; padding: 10px; }
-            td { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding: 10px 5px; }
+            tr { background-color: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; margin-bottom: 15px; padding: 10px; }
+            td { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255,255,255,0.1); padding: 10px 5px; }
             td:last-child { border-bottom: none; justify-content: center; padding-top: 15px; }
-            td::before { content: attr(data-label); font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 11px; flex: 1; text-align: left; }
+            td::before { content: attr(data-label); font-weight: 500; color: var(--text-muted); text-transform: uppercase; font-size: 11px; flex: 1; text-align: left; }
             td .td-content { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
             td[data-label="Ação"]::before { display: none; }
             .btn-excluir { width: 100%; padding: 10px; font-size: 14px; }
@@ -287,27 +218,31 @@
     </style>
 </head>
 <body>
+    <div id="toast-container"></div>
+
     <div class="container">
         <header>
             <h1>⚽ PDV - Copa 2026</h1>
-            <div class="dashboard">
-                <div class="card receita">
+            <button id="btn-toggle-admin" class="btn-toggle">👁️ Mostrar Resumo do Caixa</button>
+
+            <div class="dashboard secao-admin">
+                <div class="card glass-panel receita">
                     <h3>Receita Bruta</h3>
                     <p id="total-receita">R$ 0,00</p>
                 </div>
-                <div class="card" style="background: linear-gradient(135deg, #ef4444, #991b1b);">
+                <div class="card glass-panel custo">
                     <h3>Custo Total</h3>
                     <p id="total-custo">R$ 0,00</p>
                 </div>
-                <div class="card" style="background: linear-gradient(135deg, #10b981, #047857);">
+                <div class="card glass-panel lucro">
                     <h3>Lucro Líquido</h3>
                     <p id="total-lucro">R$ 0,00</p>
                 </div>
-                <div class="card pacotes">
+                <div class="card glass-panel pacotes">
                     <h3>Estoque Pacotes</h3>
                     <p id="est-pacotes">0</p>
                 </div>
-                <div class="card avulsas">
+                <div class="card glass-panel avulsas">
                     <h3>Estoque Avulsas</h3>
                     <p id="est-avulsas">0</p>
                 </div>
@@ -316,7 +251,7 @@
 
         <div class="grid-layout">
             <aside>
-                <section class="form-section">
+                <section class="form-section glass-panel">
                     <h2>🛒 Registrar Nova Venda</h2>
                     <form id="form-venda">
                         <div class="input-row">
@@ -342,7 +277,7 @@
                             <div class="input-group">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
                                     <label for="pagamento" style="margin:0;">Pagamento:</label>
-                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 12px; color: var(--accent); font-weight: 700;">
+                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 12px; color: var(--secondary); font-weight: 700;">
                                         <input type="checkbox" id="check-misto" style="width: auto; cursor: pointer;"> Dividir
                                     </label>
                                 </div>
@@ -354,8 +289,8 @@
                             </div>
                         </div>
 
-                        <div id="area-pgto-misto" class="escondido" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed #cbd5e1;">
-                            <label style="font-size: 13px; font-weight: 600; color: var(--accent); display: block; margin-bottom: 10px;">💳 Valores Divididos:</label>
+                        <div id="area-pgto-misto" class="escondido" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed rgba(255,255,255,0.2);">
+                            <label style="font-size: 13px; font-weight: 600; color: var(--secondary); display: block; margin-bottom: 10px;">💳 Valores Divididos:</label>
                             <div class="input-row" style="margin-bottom: 10px;">
                                 <div class="input-group" style="flex: 1.5; margin-bottom: 0;">
                                     <select id="pagamento1" style="font-size: 13px; padding: 10px;">
@@ -403,7 +338,7 @@
                     </form>
                 </section>
 
-                <section class="form-section">
+                <section class="form-section glass-panel">
                     <h2>🔄 Troca (7 por 1)</h2>
                     <form id="form-troca">
                         <div class="input-group">
@@ -411,10 +346,29 @@
                             <input type="number" id="qtd-recebida" min="7" placeholder="Ex: 9" required>
                         </div>
                         
+                        <!-- NOVO PAINEL DE ANOTAÇÃO DE FIGURINHAS -->
+                        <div class="section-divider" style="margin: 15px 0; border-color: rgba(255,255,255,0.1);"></div>
+                        <label style="font-size: 13px; font-weight: 600; color: var(--secondary); display: block; margin-bottom: 10px;">📋 Organizar por Seleção (Opcional)</label>
+                        <div class="input-row" style="margin-bottom: 10px;">
+                            <div class="input-group" style="flex: 1;">
+                                <input type="text" id="fig-sigla" placeholder="Sigla (Ex: BRA)" maxlength="3" style="text-transform: uppercase;">
+                            </div>
+                            <div class="input-group" style="flex: 2;">
+                                <input type="text" id="fig-numeros" placeholder="Números (Ex: 1, 5, 10)">
+                            </div>
+                            <button type="button" id="btn-add-fig" style="width: auto; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white;">➕</button>
+                        </div>
+                        
+                        <div id="box-figurinhas" class="escondido" style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed rgba(255,255,255,0.2);">
+                            <div id="lista-figurinhas" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                        </div>
+                        <div class="section-divider" style="margin: 15px 0; border-color: rgba(255,255,255,0.1);"></div>
+                        <!-- FIM NOVO PAINEL -->
+
                         <div class="painel-troco">
                             <div class="linha-resumo">
                                 <span style="color: var(--text-muted);">Pacotes a Entregar:</span>
-                                <span class="valor-total" id="troca-pacotes" style="color: var(--primary);">0</span>
+                                <span class="valor-total" id="troca-pacotes" style="color: #7bed9f;">0</span>
                             </div>
                             <div class="linha-resumo">
                                 <span style="color: var(--text-muted);">Avulsas Compradas (Sobras):</span>
@@ -422,7 +376,7 @@
                             </div>
                             <div class="linha-resumo">
                                 <span style="color: var(--text-main);">Pagar ao Cliente:</span>
-                                <span class="valor-troco" id="troca-pagar" style="color: var(--danger);">R$ 0,00</span>
+                                <span class="valor-troco" id="troca-pagar" style="color: #ff6b81;">R$ 0,00</span>
                             </div>
                         </div>
 
@@ -438,7 +392,7 @@
                     </form>
                 </section>
 
-                <section class="form-section">
+                <section class="form-section glass-panel secao-admin">
                     <h2>📦 Gerenciar Estoque e Dados</h2>
                     
                     <form id="form-estoque">
@@ -478,7 +432,7 @@
 
                     <h3 style="font-size: 14px; color: var(--text-main); margin-bottom: 5px;">☁ Sincronizar Dispositivos</h3>
                     <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">
-                        Baixe o arquivo de backup aqui e carregue no outro aparelho para transferir todo o caixa e estoque.
+                        Baixe o arquivo de backup aqui e carregue no outro aparelho.
                     </p>
                     
                     <button type="button" id="btn-exportar" class="btn-sync-export">⬇️ Baixar Backup</button>
@@ -489,7 +443,7 @@
                 </section>
             </aside>
 
-            <main class="table-section">
+            <main class="table-section glass-panel secao-admin">
                 <h2>📋 Histórico de Operações</h2>
                 <div class="table-wrapper">
                     <table id="tabela-vendas">
@@ -512,7 +466,38 @@
     </div>
 
     <script>
-        // Elementos de Venda
+        const btnToggleAdmin = document.getElementById('btn-toggle-admin');
+        let adminAtivo = false;
+
+        btnToggleAdmin.addEventListener('click', () => {
+            adminAtivo = !adminAtivo;
+            if(adminAtivo) {
+                document.body.classList.add('admin-ativo');
+                btnToggleAdmin.innerHTML = '🙈 Ocultar Resumo do Caixa';
+                window.scrollBy({ top: 100, behavior: 'smooth' }); 
+            } else {
+                document.body.classList.remove('admin-ativo');
+                btnToggleAdmin.innerHTML = '👁️ Mostrar Resumo do Caixa';
+            }
+        });
+
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            
+            let icon = '✅';
+            let borderColor = 'var(--success)';
+            if(type === 'error') { icon = '❌'; borderColor = 'var(--danger)'; }
+            if(type === 'warning') { icon = '⚠️'; borderColor = 'var(--warning)'; }
+            
+            toast.style.borderLeft = `4px solid ${borderColor}`;
+            toast.innerHTML = `<span style="font-size:18px;">${icon}</span> <span>${msg}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
         const formVenda = document.getElementById('form-venda');
         const tipoEl = document.getElementById('tipo');
         const quantidadeEl = document.getElementById('quantidade');
@@ -525,14 +510,12 @@
         const val1El = document.getElementById('valor1');
         const val2El = document.getElementById('valor2');
         
-        // Troco
         const areaDinheiroRecebido = document.getElementById('area-dinheiro-recebido');
         const areaLinhaTroco = document.getElementById('area-linha-troco');
         const valorRecebidoEl = document.getElementById('valor-recebido');
         const displayTotalVenda = document.getElementById('display-total-venda');
         const displayTroco = document.getElementById('display-troco');
 
-        // Elementos de Troca
         const formTroca = document.getElementById('form-troca');
         const qtdRecebidaEl = document.getElementById('qtd-recebida');
         const trocaPacotesEl = document.getElementById('troca-pacotes');
@@ -541,7 +524,14 @@
         const areaPgtoTroca = document.getElementById('area-pgto-troca');
         const pagamentoTrocaEl = document.getElementById('pagamento-troca');
 
-        // Elementos de Estoque e Dashboard
+        // Lógica das figurinhas
+        let figurinhasTrocaAtual = {};
+        const btnAddFig = document.getElementById('btn-add-fig');
+        const figSigla = document.getElementById('fig-sigla');
+        const figNumeros = document.getElementById('fig-numeros');
+        const boxFigurinhas = document.getElementById('box-figurinhas');
+        const listaFigurinhas = document.getElementById('lista-figurinhas');
+
         const formEstoque = document.getElementById('form-estoque');
         const formEditarEstoque = document.getElementById('form-editar-estoque');
         const tabelaVendas = document.querySelector('#tabela-vendas tbody');
@@ -555,11 +545,9 @@
         const editPacotesEl = document.getElementById('edit-pacotes');
         const editAvulsasEl = document.getElementById('edit-avulsas');
 
-        // Sincronização
         const btnExportar = document.getElementById('btn-exportar');
         const inputImportar = document.getElementById('input-importar');
 
-        // Estado do App
         let totalArrecadado = parseFloat(localStorage.getItem('copa_total')) || 0;
         let custoTotal = parseFloat(localStorage.getItem('copa_custo')) || 0; 
         let estoquePacotes = parseInt(localStorage.getItem('copa_pacotes')) || 0;
@@ -588,7 +576,6 @@
         }
 
         function atualizarInterface(novaLinhaIndex = -1) {
-            // Atualiza os Cards
             totalReceitaEl.textContent = formatarBRL(totalArrecadado);
             totalCustoEl.textContent = formatarBRL(custoTotal);
             totalLucroEl.textContent = formatarBRL(totalArrecadado - custoTotal);
@@ -615,28 +602,37 @@
                 }
 
                 if (op.tipo === 'Troca') {
+                    let infoExtra = '';
+                    if (op.figurinhas && Object.keys(op.figurinhas).length > 0) {
+                        let strFigurinhas = Object.entries(op.figurinhas)
+                            .map(([sigla, nums]) => `<b>${sigla}</b>: ${nums.join(', ')}`)
+                            .join(' | ');
+                        infoExtra = `<div style="font-size: 11px; color: var(--secondary); margin-top: 5px; line-height: 1.4;">📋 Anotadas:<br>${strFigurinhas}</div>`;
+                    }
+
                     htmlDetalhe = `
-                        <div style="font-weight: 600; color: var(--accent);">🔄 Troca Realizada</div>
+                        <div style="font-weight: 600; color: #7bed9f;">🔄 Troca Realizada</div>
                         <div style="font-size: 12px; color: var(--text-muted);">Entrou: ${op.qtd} Avuls. | Saiu: ${op.pacotesEntregues} Pac.</div>
+                        ${infoExtra}
                     `;
                     if (op.total < 0) {
-                        htmlTotal = `<span style="color: var(--danger); font-weight: 700;">- ${formatarBRL(Math.abs(op.total))}</span>`;
+                        htmlTotal = `<span style="color: #ff6b81; font-weight: 700;">- ${formatarBRL(Math.abs(op.total))}</span>`;
                     } else {
-                        htmlTotal = `<span style="color: var(--success); font-weight: 700;">R$ 0,00</span>`;
+                        htmlTotal = `<span style="color: #2ed573; font-weight: 700;">R$ 0,00</span>`;
                     }
                 } else {
                     htmlDetalhe = `
-                        <div style="font-weight: 600; color: var(--text-main);">${op.tipo}</div>
+                        <div style="font-weight: 600; color: #fff;">${op.tipo}</div>
                         <div style="font-size: 12px; color: var(--text-muted);">x${op.qtd} un.</div>
                     `;
-                    htmlTotal = `<span style="font-weight: 700; color: var(--primary-dark);">${formatarBRL(op.total)}</span>`;
+                    htmlTotal = `<span style="font-weight: 700; color: #7bed9f;">${formatarBRL(op.total)}</span>`;
                     
                     if (pagtoSafe === 'Dinheiro' || pagtoSafe === 'Misto') {
                         textoTroco = formatarBRL(trocoSafe);
                         if (trocoSafe > 0) {
-                            estiloTroco = 'color: var(--danger); font-weight: 700; font-size: 15px;'; 
+                            estiloTroco = 'color: #ff6b81; font-weight: 700; font-size: 15px;'; 
                         } else {
-                            estiloTroco = 'color: #64748b; font-weight: 500;'; 
+                            estiloTroco = 'color: rgba(255,255,255,0.5); font-weight: 500;'; 
                         }
                     }
                 }
@@ -646,13 +642,13 @@
 
                 tr.innerHTML = `
                     <td data-label="Data/Hora">
-                        <div class="td-content" style="color: #64748b; font-size: 12px; line-height: 1.4;">
+                        <div class="td-content" style="color: rgba(255,255,255,0.7); font-size: 12px; line-height: 1.4;">
                             ${op.data.split(' ')[0]}<br>
-                            <span style="font-weight:600; color:#475569;">${op.data.split(' ')[1]}</span>
+                            <span style="font-weight:600; color:#fff;">${op.data.split(' ')[1]}</span>
                         </div>
                     </td>
                     <td data-label="Operação">
-                        <div class="td-content">${htmlDetalhe}</div>
+                        <div class="td-content" style="text-align: left;">${htmlDetalhe}</div>
                     </td>
                     <td data-label="Pgto">
                         <div class="td-content">${pgtoHtml}</div>
@@ -696,10 +692,10 @@
                 historicoVendas.splice(index, 1);
                 salvarDados();
                 atualizarInterface();
+                showToast("Operação desfeita com sucesso!", "warning");
             }
         };
 
-        // ALTERNÂNCIA (SIMPLES / MISTO)
         checkMisto.addEventListener('change', function() {
             if(this.checked) {
                 pagamentoEl.classList.add('escondido');
@@ -711,7 +707,6 @@
             atualizarResumoVenda();
         });
 
-        // CÁLCULO VENDA
         function atualizarResumoVenda() {
             const tipo = tipoEl.value;
             const quantidade = parseInt(quantidadeEl.value) || 1;
@@ -735,15 +730,15 @@
                 const troco = recebidoTotal - totalCompra;
                 if (troco < 0 && recebidoTotal > 0) {
                     displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`;
-                    displayTroco.style.color = "var(--danger)"; 
+                    displayTroco.style.color = "#ff6b81"; 
                     trocoAtual = 0; 
                 } else if (recebidoTotal > 0) {
                     displayTroco.textContent = formatarBRL(troco);
-                    displayTroco.style.color = "var(--success)"; 
+                    displayTroco.style.color = "#7bed9f"; 
                     trocoAtual = troco; 
                 } else {
                     displayTroco.textContent = formatarBRL(0);
-                    displayTroco.style.color = "var(--text-main)"; 
+                    displayTroco.style.color = "white"; 
                     trocoAtual = 0;
                 }
             } else {
@@ -757,16 +752,16 @@
                         const troco = recebido - totalCompra;
                         if (troco < 0) {
                             displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`;
-                            displayTroco.style.color = "var(--danger)"; 
+                            displayTroco.style.color = "#ff6b81"; 
                             trocoAtual = 0; 
                         } else {
                             displayTroco.textContent = formatarBRL(troco);
-                            displayTroco.style.color = "var(--success)"; 
+                            displayTroco.style.color = "#7bed9f"; 
                             trocoAtual = troco; 
                         }
                     } else {
                         displayTroco.textContent = formatarBRL(0);
-                        displayTroco.style.color = "var(--text-main)";
+                        displayTroco.style.color = "white";
                         trocoAtual = 0;
                     }
                 } else {
@@ -777,7 +772,6 @@
             }
         }
 
-        // CÁLCULO TROCA
         function atualizarResumoTroca() {
             const recebidas = parseInt(qtdRecebidaEl.value) || 0;
             const pacotes = Math.floor(recebidas / 7);
@@ -792,7 +786,81 @@
             else areaPgtoTroca.classList.add('escondido');
         }
 
-        // Eventos
+        // ======= EVENTOS DE FIGURINHAS =======
+        btnAddFig.addEventListener('click', () => {
+            const sigla = figSigla.value.trim().toUpperCase();
+            const numerosInput = figNumeros.value.trim();
+
+            if(!sigla || !numerosInput) {
+                showToast("Preencha a sigla e os números!", "warning");
+                return;
+            }
+
+            const numeros = numerosInput.split(',').map(n => n.trim()).filter(n => n !== '');
+
+            if(!figurinhasTrocaAtual[sigla]) {
+                figurinhasTrocaAtual[sigla] = [];
+            }
+            
+            numeros.forEach(n => {
+                if(!figurinhasTrocaAtual[sigla].includes(n)) {
+                    figurinhasTrocaAtual[sigla].push(n);
+                }
+            });
+
+            figurinhasTrocaAtual[sigla].sort((a,b) => parseInt(a) - parseInt(b));
+
+            figSigla.value = '';
+            figNumeros.value = '';
+            figSigla.focus();
+
+            atualizarListaFigurinhas();
+        });
+
+        function atualizarListaFigurinhas() {
+            listaFigurinhas.innerHTML = '';
+            let totalAnotado = 0;
+
+            const chaves = Object.keys(figurinhasTrocaAtual);
+            if(chaves.length === 0) {
+                boxFigurinhas.classList.add('escondido');
+                return;
+            }
+
+            boxFigurinhas.classList.remove('escondido');
+
+            chaves.forEach(sigla => {
+                const nums = figurinhasTrocaAtual[sigla];
+                totalAnotado += nums.length;
+                
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.gap = '10px';
+                div.style.alignItems = 'center';
+                
+                div.innerHTML = `
+                    <span class="badge" style="background: rgba(255,223,0,0.2); color: var(--secondary); border-color: var(--secondary); width: 60px;">${sigla}</span>
+                    <span style="font-size: 13px; color: var(--text-muted); flex: 1;">${nums.join(', ')}</span>
+                    <button type="button" onclick="limparSelecaoTroca('${sigla}')" style="background: none; border: none; color: var(--danger); width: auto; padding: 0; font-size: 16px; box-shadow: none;">🗑️</button>
+                `;
+                listaFigurinhas.appendChild(div);
+            });
+
+            if(totalAnotado > 0) {
+                qtdRecebidaEl.value = totalAnotado;
+                atualizarResumoTroca();
+            }
+        }
+
+        window.limparSelecaoTroca = function(sigla) {
+            delete figurinhasTrocaAtual[sigla];
+            atualizarListaFigurinhas();
+            
+            let totalAnotado = Object.values(figurinhasTrocaAtual).reduce((acc, curr) => acc + curr.length, 0);
+            qtdRecebidaEl.value = totalAnotado || '';
+            atualizarResumoTroca();
+        }
+
         tipoEl.addEventListener('change', atualizarResumoVenda);
         quantidadeEl.addEventListener('input', atualizarResumoVenda);
         pagamentoEl.addEventListener('change', atualizarResumoVenda);
@@ -812,6 +880,7 @@
             salvarDados();
             atualizarInterface();
             document.getElementById('qtd-estoque').value = 50; 
+            showToast(`${qtd} ${tipoItem}s adicionados ao estoque!`);
         });
 
         formEditarEstoque.addEventListener('submit', function(e) {
@@ -820,18 +889,9 @@
             estoqueAvulsas = parseInt(editAvulsasEl.value);
             salvarDados();
             atualizarInterface();
-            
-            const btn = document.getElementById('btn-salvar-edicao');
-            const textoOriginal = btn.textContent;
-            btn.innerHTML = "✔ Salvo!";
-            btn.style.backgroundColor = "var(--success)";
-            setTimeout(() => {
-                btn.textContent = textoOriginal;
-                btn.style.backgroundColor = "white";
-            }, 2000);
+            showToast("Estoque corrigido com sucesso!");
         });
 
-        // SUBMIT VENDA
         formVenda.addEventListener('submit', function(e) {
             e.preventDefault();
             const tipo = tipoEl.value;
@@ -845,11 +905,11 @@
             let recebidoValidacao = 0;
 
             if (tipo === 'Pacote' && quantidade > estoquePacotes) {
-                alert(`❌ Estoque insuficiente!\nVocê possui apenas ${estoquePacotes} pacotes.`);
+                showToast(`Estoque insuficiente! Você possui apenas ${estoquePacotes} pacotes.`, 'error');
                 return;
             }
             if (tipo === 'Avulsa' && quantidade > estoqueAvulsas) {
-                alert(`❌ Estoque insuficiente!\nVocê possui apenas ${estoqueAvulsas} avulsas.`);
+                showToast(`Estoque insuficiente! Você possui apenas ${estoqueAvulsas} avulsas.`, 'error');
                 return;
             }
 
@@ -862,28 +922,24 @@
                 recebidoValidacao = v1 + v2;
                 
                 if (recebidoValidacao < totalVenda) {
-                    alert("⚠ A soma dos valores está menor que o total da venda!");
+                    showToast("A soma dos valores está menor que o total!", 'error');
                     return;
                 }
 
                 formaPgto = 'Misto';
                 detalheExtra = `<b>${p1}:</b> ${formatarBRL(v1)} <br> <b>${p2}:</b> ${formatarBRL(v2)}`;
-
             } else {
                 recebidoValidacao = parseFloat(valorRecebidoEl.value) || 0;
                 if (formaPgto === 'Dinheiro' && recebidoValidacao > 0 && recebidoValidacao < totalVenda) {
-                    alert("⚠ O dinheiro recebido é menor que o total da venda!");
+                    showToast("O dinheiro recebido é menor que o total!", 'error');
                     return; 
                 }
             }
 
-            // --- CÁLCULO DE CUSTO ---
             let custoUnitario = 0;
-            if (tipo === 'Pacote') {
-                custoUnitario = 5.05;
-            } else if (tipo === 'Avulsa') {
-                custoUnitario = 0; 
-            }
+            if (tipo === 'Pacote') custoUnitario = 5.05;
+            else if (tipo === 'Avulsa') custoUnitario = 0; 
+            
             const custoDaOperacao = quantidade * custoUnitario;
 
             if (tipo === 'Pacote') estoquePacotes -= quantidade;
@@ -914,15 +970,15 @@
 
             atualizarResumoVenda();
             quantidadeEl.focus();
+            showToast("Venda registrada!");
         });
 
-        // SUBMIT TROCA
         formTroca.addEventListener('submit', function(e) {
             e.preventDefault();
             const recebidas = parseInt(qtdRecebidaEl.value) || 0;
             
             if (recebidas < 7) {
-                alert("⚠ É necessário receber pelo menos 7 figurinhas para fazer uma troca.");
+                showToast("Receba pelo menos 7 figurinhas para trocar.", 'error');
                 return;
             }
 
@@ -932,7 +988,7 @@
             const formaPgto = pagamentoTrocaEl.value;
 
             if (pacotes > estoquePacotes) {
-                alert(`❌ Estoque insuficiente!\nVocê precisa de ${pacotes} pacotes para entregar, mas possui apenas ${estoquePacotes}.`);
+                showToast(`Estoque insuficiente! Você precisa de ${pacotes} pacotes, mas tem ${estoquePacotes}.`, 'error');
                 return;
             }
 
@@ -946,29 +1002,29 @@
             const dataAtual = new Date();
             const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
 
+            // Copia as figurinhas registradas para o histórico
+            const objFigurinhasSalvar = JSON.parse(JSON.stringify(figurinhasTrocaAtual));
+
             historicoVendas.unshift({
-                data: formatData, tipo: 'Troca', qtd: recebidas, pacotesEntregues: pacotes,
+                data: formatData, tipo: 'Troca', qtd: recebidas, pacotesEntregues: pacotes, figurinhas: objFigurinhasSalvar,
                 total: valorPagar * -1, custo: custoDaTroca, pagamento: excedente > 0 ? formaPgto : '-', detalhePgto: '', troco: 0
             });
             
             salvarDados();
             atualizarInterface(0);
+            
+            // Limpar form
             qtdRecebidaEl.value = '';
+            figurinhasTrocaAtual = {};
+            atualizarListaFigurinhas();
             atualizarResumoTroca();
+            
             qtdRecebidaEl.focus();
+            showToast("Troca realizada com sucesso!");
         });
 
-        // ====== LÓGICA DE EXPORTAÇÃO E IMPORTAÇÃO (BACKUP) ======
-        
         btnExportar.addEventListener('click', function() {
-            const dadosParaExportar = {
-                total: totalArrecadado,
-                custo: custoTotal,
-                pacotes: estoquePacotes,
-                avulsas: estoqueAvulsas,
-                historico: historicoVendas
-            };
-            
+            const dadosParaExportar = { total: totalArrecadado, custo: custoTotal, pacotes: estoquePacotes, avulsas: estoqueAvulsas, historico: historicoVendas };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dadosParaExportar));
             const dataHoje = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
             
@@ -978,6 +1034,7 @@
             document.body.appendChild(tagDownload);
             tagDownload.click();
             tagDownload.remove();
+            showToast("Backup baixado com sucesso!");
         });
 
         inputImportar.addEventListener('change', function(event) {
@@ -988,7 +1045,6 @@
             reader.onload = function(e) {
                 try {
                     const dadosImportados = JSON.parse(e.target.result);
-                    
                     if (dadosImportados && typeof dadosImportados.total !== 'undefined') {
                         totalArrecadado = dadosImportados.total;
                         custoTotal = dadosImportados.custo || 0; 
@@ -998,12 +1054,12 @@
                         
                         salvarDados();
                         atualizarInterface();
-                        alert("✅ Dados sincronizados com sucesso!");
+                        showToast("Dados sincronizados com sucesso!");
                     } else {
-                        alert("❌ Arquivo inválido. Certifique-se de que é um backup deste sistema.");
+                        showToast("Arquivo de backup inválido.", 'error');
                     }
                 } catch (erro) {
-                    alert("❌ Ocorreu um erro ao ler o arquivo de backup.");
+                    showToast("Erro ao ler o arquivo.", 'error');
                 }
             };
             reader.readAsText(arquivo);
