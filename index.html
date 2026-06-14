@@ -14,8 +14,6 @@
     <title>PDV Copa 2026 - Liquid Glass</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
-
     <style>
         :root {
             --primary: #009c3b;       
@@ -34,7 +32,12 @@
             --text-dark: #1e293b;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
         body {
             background: linear-gradient(-45deg, #004d1d, #00133a, #007a2e, #002776);
@@ -51,16 +54,52 @@
             100% { background-position: 0% 50%; }
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header { margin-bottom: 30px; padding-top: 10px; }
-        h1 { text-align: center; font-weight: 700; font-size: 32px; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
         .btn-toggle {
-            display: flex; margin: 0 auto 25px auto; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border); color: white; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; width: auto; backdrop-filter: blur(10px); transition: all 0.3s;
+            display: flex;
+            margin: 0 auto 25px auto;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            width: auto;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
-        .btn-toggle:hover { background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+
+        .btn-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
 
         .secao-admin { display: none !important; }
+        
         .grid-layout { display: flex; flex-direction: column; align-items: center; gap: 30px; }
         aside { width: 100%; max-width: 450px; } 
 
@@ -74,7 +113,15 @@
 
         .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
 
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; box-shadow: var(--glass-shadow); }
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+        }
+
         .card { padding: 20px; position: relative; overflow: hidden; transition: transform 0.3s ease, background 0.3s ease; }
         .card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.15); }
 
@@ -96,7 +143,10 @@
         .input-row .input-group { flex: 1; margin-bottom: 0; }
 
         label { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
-        input, select { padding: 12px 15px; border: 1px solid var(--glass-border); border-radius: 8px; font-size: 15px; color: white; background-color: rgba(0, 0, 0, 0.2); outline: none; width: 100%; transition: all 0.3s; }
+
+        input, select {
+            padding: 12px 15px; border: 1px solid var(--glass-border); border-radius: 8px; font-size: 15px; color: white; background-color: rgba(0, 0, 0, 0.2); outline: none; width: 100%; transition: all 0.3s;
+        }
         option { background: var(--text-dark); color: white; }
         input:focus, select:focus { border-color: var(--secondary); background-color: rgba(0, 0, 0, 0.4); box-shadow: 0 0 10px rgba(255, 223, 0, 0.3); }
         input[readonly] { background-color: rgba(255, 255, 255, 0.05); cursor: not-allowed; color: var(--text-muted); }
@@ -108,7 +158,9 @@
         .valor-troco { font-size: 22px; font-weight: 700; }
         .escondido { display: none !important; }
 
-        button:not(.btn-toggle), .btn-label { border: 1px solid rgba(255,255,255,0.3); padding: 14px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.2s; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        button:not(.btn-toggle), .btn-label {
+            border: 1px solid rgba(255,255,255,0.3); padding: 14px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; transition: all 0.2s; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
         button:not(.btn-toggle):active, .btn-label:active { transform: scale(0.98); }
         button:not(.btn-toggle):hover, .btn-label:hover { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
@@ -118,6 +170,7 @@
         .btn-editar { background: rgba(0, 0, 0, 0.3); color: white; }
         .btn-excluir { background: rgba(255, 71, 87, 0.2); border: 1px solid rgba(255,71,87,0.5); color: #ff6b81; padding: 6px 12px; font-size: 12px; border-radius: 6px; width: auto; text-shadow: none; }
         .btn-excluir:hover { background: rgba(255, 71, 87, 0.4); color: white; }
+        
         .btn-sync-export { background: rgba(59, 130, 246, 0.4); color: white; margin-bottom: 10px; }
         .btn-sync-import { background: rgba(139, 92, 246, 0.4); color: white; }
 
@@ -142,11 +195,6 @@
         @keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .nova-venda-anim { animation: fadeInDown 0.4s ease forwards; background-color: rgba(255, 255, 255, 0.1); }
-
-        /* Estilo da Câmera Scanner */
-        #camera-container video { width: 100%; max-height: 250px; border-radius: 8px; border: 1px solid var(--glass-border); object-fit: cover; }
-        .loader-ocr { display: inline-block; width: 12px; height: 12px; border: 2px solid white; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 768px) {
             .container { padding: 10px; }
@@ -274,10 +322,12 @@
                                 <span style="color: var(--text-muted);">Total da Compra:</span>
                                 <span class="valor-total" id="display-total-venda">R$ 7,00</span>
                             </div>
+                            
                             <div class="input-group" id="area-dinheiro-recebido" style="margin-bottom: 5px; margin-top: 15px;">
                                 <label for="valor-recebido">Dinheiro Recebido (R$):</label>
                                 <input type="number" id="valor-recebido" step="0.01" min="0" placeholder="0.00" style="font-size: 18px; font-weight: bold; text-align: right;">
                             </div>
+
                             <div class="linha-resumo" id="area-linha-troco">
                                 <span style="color: var(--text-main);">Troco a Devolver:</span>
                                 <span class="valor-troco" id="display-troco">R$ 0,00</span>
@@ -292,33 +342,19 @@
                     <h2>🔄 Troca (7 por 1)</h2>
                     <form id="form-troca">
                         <div class="input-group">
-                            <label for="qtd-recebida">Qtd. de Avulsas recebidas:</label>
-                            <input type="number" id="qtd-recebida" min="7" placeholder="Anotação preenche automático..." required>
+                            <label for="qtd-recebida">Qtd. de Avulsas que o cliente entregou:</label>
+                            <input type="number" id="qtd-recebida" min="7" placeholder="Ex: 9" required>
                         </div>
                         
+                        <!-- NOVO PAINEL DE ANOTAÇÃO DE FIGURINHAS -->
                         <div class="section-divider" style="margin: 15px 0; border-color: rgba(255,255,255,0.1);"></div>
-                        <label style="font-size: 13px; font-weight: 600; color: var(--secondary); display: block; margin-bottom: 10px;">📋 Organizar por Seleção</label>
-                        
-                        <button type="button" id="btn-abrir-camera" class="btn-editar" style="margin-bottom: 15px; border-color: var(--secondary); color: var(--secondary);">
-                            📷 Escanear Figurinha (OCR)
-                        </button>
-
-                        <div id="area-camera" class="escondido" style="margin-bottom: 15px; padding: 15px; background: rgba(0,0,0,0.4); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);">
-                            <video id="video-camera" autoplay playsinline></video>
-                            <canvas id="canvas-camera" class="escondido"></canvas>
-                            <p id="status-ocr" style="font-size: 11px; color: var(--secondary); text-align: center; margin: 10px 0; min-height: 16px;"></p>
-                            <div style="display: flex; gap: 10px;">
-                                <button type="button" id="btn-capturar-img" class="btn-venda" style="background: var(--secondary); color: var(--text-dark);">📸 Capturar</button>
-                                <button type="button" id="btn-fechar-camera" class="btn-excluir" style="width: 100%; font-size: 15px;">Fechar</button>
-                            </div>
-                        </div>
-
+                        <label style="font-size: 13px; font-weight: 600; color: var(--secondary); display: block; margin-bottom: 10px;">📋 Organizar por Seleção (Opcional)</label>
                         <div class="input-row" style="margin-bottom: 10px;">
                             <div class="input-group" style="flex: 1;">
-                                <input type="text" id="fig-sigla" placeholder="Sigla (BRA)" maxlength="3" style="text-transform: uppercase;">
+                                <input type="text" id="fig-sigla" placeholder="Sigla (Ex: BRA)" maxlength="3" style="text-transform: uppercase;">
                             </div>
                             <div class="input-group" style="flex: 2;">
-                                <input type="text" id="fig-numeros" placeholder="Números (1, 5, 10)">
+                                <input type="text" id="fig-numeros" placeholder="Números (Ex: 1, 5, 10)">
                             </div>
                             <button type="button" id="btn-add-fig" style="width: auto; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white;">➕</button>
                         </div>
@@ -327,6 +363,7 @@
                             <div id="lista-figurinhas" style="display: flex; flex-direction: column; gap: 8px;"></div>
                         </div>
                         <div class="section-divider" style="margin: 15px 0; border-color: rgba(255,255,255,0.1);"></div>
+                        <!-- FIM NOVO PAINEL -->
 
                         <div class="painel-troco">
                             <div class="linha-resumo">
@@ -334,7 +371,7 @@
                                 <span class="valor-total" id="troca-pacotes" style="color: #7bed9f;">0</span>
                             </div>
                             <div class="linha-resumo">
-                                <span style="color: var(--text-muted);">Avulsas Compradas:</span>
+                                <span style="color: var(--text-muted);">Avulsas Compradas (Sobras):</span>
                                 <span class="valor-total" id="troca-excedente" style="color: var(--warning);">0</span>
                             </div>
                             <div class="linha-resumo">
@@ -357,29 +394,52 @@
 
                 <section class="form-section glass-panel secao-admin">
                     <h2>📦 Gerenciar Estoque e Dados</h2>
+                    
                     <form id="form-estoque">
                         <label style="font-size: 14px; color: var(--text-main);">➕ Dar Entrada (Somar):</label>
                         <div class="input-row" style="margin-top: 8px;">
-                            <div class="input-group"><select id="tipo-estoque" required><option value="Pacote">Pacotes</option><option value="Avulsa">Avulsas</option></select></div>
-                            <div class="input-group"><input type="number" id="qtd-estoque" min="1" value="50" required></div>
+                            <div class="input-group">
+                                <select id="tipo-estoque" required>
+                                    <option value="Pacote">Pacotes</option>
+                                    <option value="Avulsa">Avulsas</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <input type="number" id="qtd-estoque" min="1" value="50" required>
+                            </div>
                         </div>
                         <button type="submit" class="btn-estoque">Somar ao Estoque</button>
                     </form>
+
                     <div class="section-divider"></div>
+
                     <form id="form-editar-estoque">
                         <label style="font-size: 14px; color: var(--text-main);">✏️ Correção Manual:</label>
                         <div class="input-row" style="margin-top: 8px;">
-                            <div class="input-group"><label for="edit-pacotes">Pacotes:</label><input type="number" id="edit-pacotes" min="0" required></div>
-                            <div class="input-group"><label for="edit-avulsas">Avulsas:</label><input type="number" id="edit-avulsas" min="0" required></div>
+                            <div class="input-group">
+                                <label for="edit-pacotes">Pacotes exatos:</label>
+                                <input type="number" id="edit-pacotes" min="0" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="edit-avulsas">Avulsas exatas:</label>
+                                <input type="number" id="edit-avulsas" min="0" required>
+                            </div>
                         </div>
                         <button type="submit" class="btn-editar" id="btn-salvar-edicao">Salvar Correção</button>
                     </form>
+
                     <div class="section-divider"></div>
+
                     <h3 style="font-size: 14px; color: var(--text-main); margin-bottom: 5px;">☁ Sincronizar Dispositivos</h3>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Baixe o arquivo de backup aqui e carregue no outro aparelho.</p>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">
+                        Baixe o arquivo de backup aqui e carregue no outro aparelho.
+                    </p>
+                    
                     <button type="button" id="btn-exportar" class="btn-sync-export">⬇️ Baixar Backup</button>
+                    
                     <label for="input-importar" class="btn-label btn-sync-import">⬆️ Carregar Backup</label>
                     <input type="file" id="input-importar" accept=".json" style="display: none;">
+                    
                 </section>
             </aside>
 
@@ -397,7 +457,8 @@
                                 <th style="text-align: center;">Cancelar</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                        </tbody>
                     </table>
                 </div>
             </main>
@@ -424,24 +485,68 @@
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast';
-            let icon = '✅'; let borderColor = 'var(--success)';
+            
+            let icon = '✅';
+            let borderColor = 'var(--success)';
             if(type === 'error') { icon = '❌'; borderColor = 'var(--danger)'; }
             if(type === 'warning') { icon = '⚠️'; borderColor = 'var(--warning)'; }
+            
             toast.style.borderLeft = `4px solid ${borderColor}`;
             toast.innerHTML = `<span style="font-size:18px;">${icon}</span> <span>${msg}</span>`;
+            
             container.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 3000);
         }
 
-        // Variáveis globais
-        const formVenda = document.getElementById('form-venda'), tipoEl = document.getElementById('tipo'), quantidadeEl = document.getElementById('quantidade'), precoEl = document.getElementById('preco'), checkMisto = document.getElementById('check-misto'), pagamentoEl = document.getElementById('pagamento'), areaPgtoMisto = document.getElementById('area-pgto-misto'), pag1El = document.getElementById('pagamento1'), pag2El = document.getElementById('pagamento2'), val1El = document.getElementById('valor1'), val2El = document.getElementById('valor2');
-        const areaDinheiroRecebido = document.getElementById('area-dinheiro-recebido'), areaLinhaTroco = document.getElementById('area-linha-troco'), valorRecebidoEl = document.getElementById('valor-recebido'), displayTotalVenda = document.getElementById('display-total-venda'), displayTroco = document.getElementById('display-troco');
-        const formTroca = document.getElementById('form-troca'), qtdRecebidaEl = document.getElementById('qtd-recebida'), trocaPacotesEl = document.getElementById('troca-pacotes'), trocaExcedenteEl = document.getElementById('troca-excedente'), trocaPagarEl = document.getElementById('troca-pagar'), areaPgtoTroca = document.getElementById('area-pgto-troca'), pagamentoTrocaEl = document.getElementById('pagamento-troca');
+        const formVenda = document.getElementById('form-venda');
+        const tipoEl = document.getElementById('tipo');
+        const quantidadeEl = document.getElementById('quantidade');
+        const precoEl = document.getElementById('preco');
+        const checkMisto = document.getElementById('check-misto');
+        const pagamentoEl = document.getElementById('pagamento');
+        const areaPgtoMisto = document.getElementById('area-pgto-misto');
+        const pag1El = document.getElementById('pagamento1');
+        const pag2El = document.getElementById('pagamento2');
+        const val1El = document.getElementById('valor1');
+        const val2El = document.getElementById('valor2');
         
-        const formEstoque = document.getElementById('form-estoque'), formEditarEstoque = document.getElementById('form-editar-estoque'), tabelaVendas = document.querySelector('#tabela-vendas tbody');
-        const totalReceitaEl = document.getElementById('total-receita'), totalCustoEl = document.getElementById('total-custo'), totalLucroEl = document.getElementById('total-lucro');
-        const estPacotesEl = document.getElementById('est-pacotes'), estAvulsasEl = document.getElementById('est-avulsas'), editPacotesEl = document.getElementById('edit-pacotes'), editAvulsasEl = document.getElementById('edit-avulsas');
-        const btnExportar = document.getElementById('btn-exportar'), inputImportar = document.getElementById('input-importar');
+        const areaDinheiroRecebido = document.getElementById('area-dinheiro-recebido');
+        const areaLinhaTroco = document.getElementById('area-linha-troco');
+        const valorRecebidoEl = document.getElementById('valor-recebido');
+        const displayTotalVenda = document.getElementById('display-total-venda');
+        const displayTroco = document.getElementById('display-troco');
+
+        const formTroca = document.getElementById('form-troca');
+        const qtdRecebidaEl = document.getElementById('qtd-recebida');
+        const trocaPacotesEl = document.getElementById('troca-pacotes');
+        const trocaExcedenteEl = document.getElementById('troca-excedente');
+        const trocaPagarEl = document.getElementById('troca-pagar');
+        const areaPgtoTroca = document.getElementById('area-pgto-troca');
+        const pagamentoTrocaEl = document.getElementById('pagamento-troca');
+
+        // Lógica das figurinhas
+        let figurinhasTrocaAtual = {};
+        const btnAddFig = document.getElementById('btn-add-fig');
+        const figSigla = document.getElementById('fig-sigla');
+        const figNumeros = document.getElementById('fig-numeros');
+        const boxFigurinhas = document.getElementById('box-figurinhas');
+        const listaFigurinhas = document.getElementById('lista-figurinhas');
+
+        const formEstoque = document.getElementById('form-estoque');
+        const formEditarEstoque = document.getElementById('form-editar-estoque');
+        const tabelaVendas = document.querySelector('#tabela-vendas tbody');
+        
+        const totalReceitaEl = document.getElementById('total-receita');
+        const totalCustoEl = document.getElementById('total-custo'); 
+        const totalLucroEl = document.getElementById('total-lucro'); 
+        
+        const estPacotesEl = document.getElementById('est-pacotes');
+        const estAvulsasEl = document.getElementById('est-avulsas');
+        const editPacotesEl = document.getElementById('edit-pacotes');
+        const editAvulsasEl = document.getElementById('edit-avulsas');
+
+        const btnExportar = document.getElementById('btn-exportar');
+        const inputImportar = document.getElementById('input-importar');
 
         let totalArrecadado = parseFloat(localStorage.getItem('copa_total')) || 0;
         let custoTotal = parseFloat(localStorage.getItem('copa_custo')) || 0; 
@@ -449,7 +554,6 @@
         let estoqueAvulsas = parseInt(localStorage.getItem('copa_avulsas')) || 0;
         let historicoVendas = JSON.parse(localStorage.getItem('copa_historico')) || [];
         let trocoAtual = 0;
-        let figurinhasTrocaAtual = {};
 
         function salvarDados() {
             localStorage.setItem('copa_total', totalArrecadado);
@@ -459,56 +563,107 @@
             localStorage.setItem('copa_historico', JSON.stringify(historicoVendas));
         }
 
-        function formatarBRL(valor) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor); }
+        function formatarBRL(valor) {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+        }
+
         function obterClasseBadge(pagamento) {
-            if(pagamento === 'Dinheiro') return 'badge-dinheiro'; if(pagamento === 'PIX') return 'badge-pix';
-            if(pagamento === 'Cartão') return 'badge-cartao'; if(pagamento === 'Misto') return 'badge-misto'; return 'badge-troca'; 
+            if(pagamento === 'Dinheiro') return 'badge-dinheiro';
+            if(pagamento === 'PIX') return 'badge-pix';
+            if(pagamento === 'Cartão') return 'badge-cartao';
+            if(pagamento === 'Misto') return 'badge-misto';
+            return 'badge-troca'; 
         }
 
         function atualizarInterface(novaLinhaIndex = -1) {
             totalReceitaEl.textContent = formatarBRL(totalArrecadado);
             totalCustoEl.textContent = formatarBRL(custoTotal);
             totalLucroEl.textContent = formatarBRL(totalArrecadado - custoTotal);
-            estPacotesEl.textContent = estoquePacotes; estAvulsasEl.textContent = estoqueAvulsas;
-            editPacotesEl.value = estoquePacotes; editAvulsasEl.value = estoqueAvulsas;
+            
+            estPacotesEl.textContent = estoquePacotes;
+            estAvulsasEl.textContent = estoqueAvulsas;
+
+            editPacotesEl.value = estoquePacotes;
+            editAvulsasEl.value = estoqueAvulsas;
 
             tabelaVendas.innerHTML = '';
             historicoVendas.forEach((op, index) => {
-                const pagtoSafe = op.pagamento || 'Dinheiro'; const trocoSafe = op.troco || 0;
-                let htmlDetalhe = ''; let htmlTotal = ''; let textoTroco = '-'; let estiloTroco = 'color: #94a3b8; font-size: 16px;'; 
+                const pagtoSafe = op.pagamento || 'Dinheiro';
+                const trocoSafe = op.troco || 0;
+
+                let htmlDetalhe = '';
+                let htmlTotal = '';
+                let textoTroco = '-';
+                let estiloTroco = 'color: #94a3b8; font-size: 16px;'; 
                 let pgtoHtml = `<span class="badge ${obterClasseBadge(pagtoSafe)}">${pagtoSafe}</span>`;
 
-                if (op.detalhePgto) pgtoHtml += `<div style="font-size: 10px; color: var(--text-muted); margin-top: 5px; line-height: 1.3;">${op.detalhePgto}</div>`;
+                if (op.detalhePgto) {
+                    pgtoHtml += `<div style="font-size: 10px; color: var(--text-muted); margin-top: 5px; line-height: 1.3;">${op.detalhePgto}</div>`;
+                }
 
                 if (op.tipo === 'Troca') {
                     let infoExtra = '';
                     if (op.figurinhas && Object.keys(op.figurinhas).length > 0) {
-                        let strFigurinhas = Object.entries(op.figurinhas).map(([sigla, nums]) => `<b>${sigla}</b>: ${nums.join(', ')}`).join(' | ');
-                        infoExtra = `<div style="font-size: 11px; color: var(--secondary); margin-top: 5px; line-height: 1.4;">📋 ${strFigurinhas}</div>`;
+                        let strFigurinhas = Object.entries(op.figurinhas)
+                            .map(([sigla, nums]) => `<b>${sigla}</b>: ${nums.join(', ')}`)
+                            .join(' | ');
+                        infoExtra = `<div style="font-size: 11px; color: var(--secondary); margin-top: 5px; line-height: 1.4;">📋 Anotadas:<br>${strFigurinhas}</div>`;
                     }
 
-                    htmlDetalhe = `<div style="font-weight: 600; color: #7bed9f;">🔄 Troca Realizada</div><div style="font-size: 12px; color: var(--text-muted);">Entrou: ${op.qtd} Avuls. | Saiu: ${op.pacotesEntregues} Pac.</div>${infoExtra}`;
-                    if (op.total < 0) htmlTotal = `<span style="color: #ff6b81; font-weight: 700;">- ${formatarBRL(Math.abs(op.total))}</span>`;
-                    else htmlTotal = `<span style="color: #2ed573; font-weight: 700;">R$ 0,00</span>`;
+                    htmlDetalhe = `
+                        <div style="font-weight: 600; color: #7bed9f;">🔄 Troca Realizada</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Entrou: ${op.qtd} Avuls. | Saiu: ${op.pacotesEntregues} Pac.</div>
+                        ${infoExtra}
+                    `;
+                    if (op.total < 0) {
+                        htmlTotal = `<span style="color: #ff6b81; font-weight: 700;">- ${formatarBRL(Math.abs(op.total))}</span>`;
+                    } else {
+                        htmlTotal = `<span style="color: #2ed573; font-weight: 700;">R$ 0,00</span>`;
+                    }
                 } else {
-                    htmlDetalhe = `<div style="font-weight: 600; color: #fff;">${op.tipo}</div><div style="font-size: 12px; color: var(--text-muted);">x${op.qtd} un.</div>`;
+                    htmlDetalhe = `
+                        <div style="font-weight: 600; color: #fff;">${op.tipo}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">x${op.qtd} un.</div>
+                    `;
                     htmlTotal = `<span style="font-weight: 700; color: #7bed9f;">${formatarBRL(op.total)}</span>`;
+                    
                     if (pagtoSafe === 'Dinheiro' || pagtoSafe === 'Misto') {
                         textoTroco = formatarBRL(trocoSafe);
-                        if (trocoSafe > 0) estiloTroco = 'color: #ff6b81; font-weight: 700; font-size: 15px;'; 
-                        else estiloTroco = 'color: rgba(255,255,255,0.5); font-weight: 500;'; 
+                        if (trocoSafe > 0) {
+                            estiloTroco = 'color: #ff6b81; font-weight: 700; font-size: 15px;'; 
+                        } else {
+                            estiloTroco = 'color: rgba(255,255,255,0.5); font-weight: 500;'; 
+                        }
                     }
                 }
 
                 const tr = document.createElement('tr');
                 if (index === novaLinhaIndex) tr.classList.add('nova-venda-anim');
+
                 tr.innerHTML = `
-                    <td data-label="Data/Hora"><div class="td-content" style="color: rgba(255,255,255,0.7); font-size: 12px; line-height: 1.4;">${op.data.split(' ')[0]}<br><span style="font-weight:600; color:#fff;">${op.data.split(' ')[1]}</span></div></td>
-                    <td data-label="Operação"><div class="td-content" style="text-align: left;">${htmlDetalhe}</div></td>
-                    <td data-label="Pgto"><div class="td-content">${pgtoHtml}</div></td>
-                    <td data-label="Valor"><div class="td-content">${htmlTotal}</div></td>
-                    <td data-label="Troco"><div class="td-content" style="${estiloTroco}">${textoTroco}</div></td>
-                    <td data-label="Ação"><div class="td-content" style="width: 100%;"><button class="btn-excluir" title="Desfazer" onclick="deletarVenda(${index})">Cancelar</button></div></td>
+                    <td data-label="Data/Hora">
+                        <div class="td-content" style="color: rgba(255,255,255,0.7); font-size: 12px; line-height: 1.4;">
+                            ${op.data.split(' ')[0]}<br>
+                            <span style="font-weight:600; color:#fff;">${op.data.split(' ')[1]}</span>
+                        </div>
+                    </td>
+                    <td data-label="Operação">
+                        <div class="td-content" style="text-align: left;">${htmlDetalhe}</div>
+                    </td>
+                    <td data-label="Pgto">
+                        <div class="td-content">${pgtoHtml}</div>
+                    </td>
+                    <td data-label="Valor">
+                        <div class="td-content">${htmlTotal}</div>
+                    </td>
+                    <td data-label="Troco">
+                        <div class="td-content" style="${estiloTroco}">${textoTroco}</div>
+                    </td>
+                    <td data-label="Ação">
+                        <div class="td-content" style="width: 100%;">
+                            <button class="btn-excluir" title="Desfazer" onclick="deletarVenda(${index})">Cancelar</button>
+                        </div>
+                    </td>
                 `;
                 tabelaVendas.appendChild(tr);
             });
@@ -517,265 +672,404 @@
         window.deletarVenda = function(index) {
             if(confirm("⚠ Deseja realmente cancelar e desfazer esta operação?")) {
                 const op = historicoVendas[index];
+
                 if (op.tipo === 'Troca') {
-                    estoqueAvulsas -= op.qtd; estoquePacotes += op.pacotesEntregues; totalArrecadado -= Math.abs(op.total); custoTotal -= (op.custo || 0); 
+                    estoqueAvulsas -= op.qtd; 
+                    estoquePacotes += op.pacotesEntregues; 
+                    totalArrecadado -= Math.abs(op.total); 
+                    custoTotal -= (op.custo || 0); 
                 } else {
-                    totalArrecadado -= op.total; custoTotal -= (op.custo || 0); 
-                    if (totalArrecadado < 0) totalArrecadado = 0; if (custoTotal < 0) custoTotal = 0; 
-                    if (op.tipo === 'Pacote') estoquePacotes += op.qtd; else if (op.tipo === 'Avulsa') estoqueAvulsas += op.qtd;
+                    totalArrecadado -= op.total;
+                    custoTotal -= (op.custo || 0); 
+                    
+                    if (totalArrecadado < 0) totalArrecadado = 0; 
+                    if (custoTotal < 0) custoTotal = 0; 
+
+                    if (op.tipo === 'Pacote') estoquePacotes += op.qtd;
+                    else if (op.tipo === 'Avulsa') estoqueAvulsas += op.qtd;
                 }
-                historicoVendas.splice(index, 1); salvarDados(); atualizarInterface(); showToast("Operação desfeita com sucesso!", "warning");
+
+                historicoVendas.splice(index, 1);
+                salvarDados();
+                atualizarInterface();
+                showToast("Operação desfeita com sucesso!", "warning");
             }
         };
 
         checkMisto.addEventListener('change', function() {
-            if(this.checked) { pagamentoEl.classList.add('escondido'); areaPgtoMisto.classList.remove('escondido'); } 
-            else { pagamentoEl.classList.remove('escondido'); areaPgtoMisto.classList.add('escondido'); }
+            if(this.checked) {
+                pagamentoEl.classList.add('escondido');
+                areaPgtoMisto.classList.remove('escondido');
+            } else {
+                pagamentoEl.classList.remove('escondido');
+                areaPgtoMisto.classList.add('escondido');
+            }
             atualizarResumoVenda();
         });
 
         function atualizarResumoVenda() {
-            const tipo = tipoEl.value; const quantidade = parseInt(quantidadeEl.value) || 1; const isMisto = checkMisto.checked;
-            if (tipo === 'Pacote') precoEl.value = quantidade >= 10 ? '6.00' : '7.00'; else if (tipo === 'Avulsa') precoEl.value = '1.00'; 
-            const preco = parseFloat(precoEl.value) || 0; const totalCompra = quantidade * preco;
+            const tipo = tipoEl.value;
+            const quantidade = parseInt(quantidadeEl.value) || 1;
+            const isMisto = checkMisto.checked;
+
+            if (tipo === 'Pacote') precoEl.value = quantidade >= 10 ? '6.00' : '7.00';
+            else if (tipo === 'Avulsa') precoEl.value = '1.00'; 
+
+            const preco = parseFloat(precoEl.value) || 0;
+            const totalCompra = quantidade * preco;
             displayTotalVenda.textContent = formatarBRL(totalCompra);
 
             if (isMisto) {
-                areaDinheiroRecebido.classList.add('escondido'); areaLinhaTroco.classList.remove('escondido'); 
-                const v1 = parseFloat(val1El.value) || 0; const v2 = parseFloat(val2El.value) || 0; const recebidoTotal = v1 + v2;
+                areaDinheiroRecebido.classList.add('escondido'); 
+                areaLinhaTroco.classList.remove('escondido'); 
+
+                const v1 = parseFloat(val1El.value) || 0;
+                const v2 = parseFloat(val2El.value) || 0;
+                const recebidoTotal = v1 + v2;
+                
                 const troco = recebidoTotal - totalCompra;
-                if (troco < 0 && recebidoTotal > 0) { displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`; displayTroco.style.color = "#ff6b81"; trocoAtual = 0; } 
-                else if (recebidoTotal > 0) { displayTroco.textContent = formatarBRL(troco); displayTroco.style.color = "#7bed9f"; trocoAtual = troco; } 
-                else { displayTroco.textContent = formatarBRL(0); displayTroco.style.color = "white"; trocoAtual = 0; }
+                if (troco < 0 && recebidoTotal > 0) {
+                    displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`;
+                    displayTroco.style.color = "#ff6b81"; 
+                    trocoAtual = 0; 
+                } else if (recebidoTotal > 0) {
+                    displayTroco.textContent = formatarBRL(troco);
+                    displayTroco.style.color = "#7bed9f"; 
+                    trocoAtual = troco; 
+                } else {
+                    displayTroco.textContent = formatarBRL(0);
+                    displayTroco.style.color = "white"; 
+                    trocoAtual = 0;
+                }
             } else {
                 const formaPgto = pagamentoEl.value;
                 if (formaPgto === 'Dinheiro') {
-                    areaDinheiroRecebido.classList.remove('escondido'); areaLinhaTroco.classList.remove('escondido');
+                    areaDinheiroRecebido.classList.remove('escondido');
+                    areaLinhaTroco.classList.remove('escondido');
+
                     const recebido = parseFloat(valorRecebidoEl.value);
                     if (!isNaN(recebido) && recebido > 0) {
                         const troco = recebido - totalCompra;
-                        if (troco < 0) { displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`; displayTroco.style.color = "#ff6b81"; trocoAtual = 0; } 
-                        else { displayTroco.textContent = formatarBRL(troco); displayTroco.style.color = "#7bed9f"; trocoAtual = troco; }
-                    } else { displayTroco.textContent = formatarBRL(0); displayTroco.style.color = "white"; trocoAtual = 0; }
-                } else { areaDinheiroRecebido.classList.add('escondido'); areaLinhaTroco.classList.add('escondido'); trocoAtual = 0; }
+                        if (troco < 0) {
+                            displayTroco.textContent = `Falta ${formatarBRL(Math.abs(troco))}`;
+                            displayTroco.style.color = "#ff6b81"; 
+                            trocoAtual = 0; 
+                        } else {
+                            displayTroco.textContent = formatarBRL(troco);
+                            displayTroco.style.color = "#7bed9f"; 
+                            trocoAtual = troco; 
+                        }
+                    } else {
+                        displayTroco.textContent = formatarBRL(0);
+                        displayTroco.style.color = "white";
+                        trocoAtual = 0;
+                    }
+                } else {
+                    areaDinheiroRecebido.classList.add('escondido');
+                    areaLinhaTroco.classList.add('escondido');
+                    trocoAtual = 0; 
+                }
             }
         }
 
         function atualizarResumoTroca() {
             const recebidas = parseInt(qtdRecebidaEl.value) || 0;
-            const pacotes = Math.floor(recebidas / 7); const excedente = recebidas % 7; const valorPagar = excedente * 1.00;
-            trocaPacotesEl.textContent = pacotes; trocaExcedenteEl.textContent = excedente; trocaPagarEl.textContent = formatarBRL(valorPagar);
-            if (excedente > 0) areaPgtoTroca.classList.remove('escondido'); else areaPgtoTroca.classList.add('escondido');
+            const pacotes = Math.floor(recebidas / 7);
+            const excedente = recebidas % 7;
+            const valorPagar = excedente * 1.00;
+
+            trocaPacotesEl.textContent = pacotes;
+            trocaExcedenteEl.textContent = excedente;
+            trocaPagarEl.textContent = formatarBRL(valorPagar);
+
+            if (excedente > 0) areaPgtoTroca.classList.remove('escondido');
+            else areaPgtoTroca.classList.add('escondido');
         }
 
-        // ==========================================
-        // LÓGICA DE FIGURINHAS (MANUAL + OCR)
-        // ==========================================
-        const btnAddFig = document.getElementById('btn-add-fig'), figSigla = document.getElementById('fig-sigla'), figNumeros = document.getElementById('fig-numeros');
-        const boxFigurinhas = document.getElementById('box-figurinhas'), listaFigurinhas = document.getElementById('lista-figurinhas');
-        
-        // Câmera e OCR
-        const video = document.getElementById('video-camera'), canvas = document.getElementById('canvas-camera');
-        const btnAbrirCamera = document.getElementById('btn-abrir-camera'), btnCapturarImg = document.getElementById('btn-capturar-img'), btnFecharCamera = document.getElementById('btn-fechar-camera');
-        const statusOcr = document.getElementById('status-ocr'), areaCamera = document.getElementById('area-camera');
-        let streamAtivo = null;
-
-        btnAbrirCamera.addEventListener('click', async () => {
-            areaCamera.classList.remove('escondido'); btnAbrirCamera.classList.add('escondido');
-            try {
-                streamAtivo = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                video.srcObject = streamAtivo;
-            } catch (err) {
-                showToast("Erro ao acessar a câmera traseira do celular.", "error");
-                areaCamera.classList.add('escondido'); btnAbrirCamera.classList.remove('escondido');
-            }
-        });
-
-        btnFecharCamera.addEventListener('click', fecharCamera);
-
-        function fecharCamera() {
-            if (streamAtivo) streamAtivo.getTracks().forEach(track => track.stop());
-            areaCamera.classList.add('escondido'); btnAbrirCamera.classList.remove('escondido');
-            statusOcr.innerHTML = '';
-        }
-
-        btnCapturarImg.addEventListener('click', async () => {
-            statusOcr.innerHTML = '<span class="loader-ocr"></span> Processando imagem (aguarde...)';
-            canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            try {
-                // Roda o Tesseract
-                const { data: { text } } = await Tesseract.recognize(canvas, 'eng');
-                statusOcr.innerHTML = '<span class="loader-ocr"></span> Imagem lida, analisando texto...';
-                
-                // Procura Sigla (3 letras) + Números (Ex: BRA 10, FW 22, USA 1)
-                // Aumentei a flexibilidade do regex para suportar pequenas sujeiras
-                const regex = /([A-Z]{2,3})\s*(\d+)/gi;
-                let matches;
-                let encontrou = false;
-                let adicionadasAgora = 0;
-
-                while ((matches = regex.exec(text)) !== null) {
-                    encontrou = true;
-                    const siglaLida = matches[1].toUpperCase();
-                    const numLido = matches[2];
-                    
-                    if(!figurinhasTrocaAtual[siglaLida]) figurinhasTrocaAtual[siglaLida] = [];
-                    if(!figurinhasTrocaAtual[siglaLida].includes(numLido)) {
-                        figurinhasTrocaAtual[siglaLida].push(numLido);
-                        figurinhasTrocaAtual[siglaLida].sort((a,b) => parseInt(a) - parseInt(b));
-                        adicionadasAgora++;
-                    }
-                }
-
-                if (encontrou) {
-                    atualizarListaFigurinhas();
-                    if(adicionadasAgora > 0) showToast(`+${adicionadasAgora} figurinha(s) escaneada(s)!`, "success");
-                    else showToast("Figurinha(s) já estava(m) na lista.", "warning");
-                    statusOcr.textContent = 'Aponte a próxima ou feche a câmera.';
-                } else {
-                    statusOcr.textContent = 'Nenhuma sigla/número clara encontrada. Foque melhor.';
-                }
-            } catch (err) {
-                showToast("Erro no processamento da IA.", "error");
-                statusOcr.textContent = 'Falha ao ler a imagem.';
-            }
-        });
-
-        // Adição Manual
+        // ======= EVENTOS DE FIGURINHAS =======
         btnAddFig.addEventListener('click', () => {
-            const sigla = figSigla.value.trim().toUpperCase(); const numerosInput = figNumeros.value.trim();
-            if(!sigla || !numerosInput) { showToast("Preencha a sigla e os números!", "warning"); return; }
+            const sigla = figSigla.value.trim().toUpperCase();
+            const numerosInput = figNumeros.value.trim();
+
+            if(!sigla || !numerosInput) {
+                showToast("Preencha a sigla e os números!", "warning");
+                return;
+            }
 
             const numeros = numerosInput.split(',').map(n => n.trim()).filter(n => n !== '');
-            if(!figurinhasTrocaAtual[sigla]) figurinhasTrocaAtual[sigla] = [];
+
+            if(!figurinhasTrocaAtual[sigla]) {
+                figurinhasTrocaAtual[sigla] = [];
+            }
             
             numeros.forEach(n => {
-                if(!figurinhasTrocaAtual[sigla].includes(n)) figurinhasTrocaAtual[sigla].push(n);
+                if(!figurinhasTrocaAtual[sigla].includes(n)) {
+                    figurinhasTrocaAtual[sigla].push(n);
+                }
             });
+
             figurinhasTrocaAtual[sigla].sort((a,b) => parseInt(a) - parseInt(b));
-            figSigla.value = ''; figNumeros.value = ''; figSigla.focus();
+
+            figSigla.value = '';
+            figNumeros.value = '';
+            figSigla.focus();
+
             atualizarListaFigurinhas();
         });
 
         function atualizarListaFigurinhas() {
-            listaFigurinhas.innerHTML = ''; let totalAnotado = 0;
+            listaFigurinhas.innerHTML = '';
+            let totalAnotado = 0;
+
             const chaves = Object.keys(figurinhasTrocaAtual);
-            if(chaves.length === 0) { boxFigurinhas.classList.add('escondido'); return; }
+            if(chaves.length === 0) {
+                boxFigurinhas.classList.add('escondido');
+                return;
+            }
 
             boxFigurinhas.classList.remove('escondido');
+
             chaves.forEach(sigla => {
-                const nums = figurinhasTrocaAtual[sigla]; totalAnotado += nums.length;
+                const nums = figurinhasTrocaAtual[sigla];
+                totalAnotado += nums.length;
+                
                 const div = document.createElement('div');
-                div.style.display = 'flex'; div.style.gap = '10px'; div.style.alignItems = 'center';
-                div.innerHTML = `<span class="badge" style="background: rgba(255,223,0,0.2); color: var(--secondary); border-color: var(--secondary); width: 60px;">${sigla}</span><span style="font-size: 13px; color: var(--text-muted); flex: 1;">${nums.join(', ')}</span><button type="button" onclick="limparSelecaoTroca('${sigla}')" style="background: none; border: none; color: var(--danger); width: auto; padding: 0; font-size: 16px; box-shadow: none;">🗑️</button>`;
+                div.style.display = 'flex';
+                div.style.gap = '10px';
+                div.style.alignItems = 'center';
+                
+                div.innerHTML = `
+                    <span class="badge" style="background: rgba(255,223,0,0.2); color: var(--secondary); border-color: var(--secondary); width: 60px;">${sigla}</span>
+                    <span style="font-size: 13px; color: var(--text-muted); flex: 1;">${nums.join(', ')}</span>
+                    <button type="button" onclick="limparSelecaoTroca('${sigla}')" style="background: none; border: none; color: var(--danger); width: auto; padding: 0; font-size: 16px; box-shadow: none;">🗑️</button>
+                `;
                 listaFigurinhas.appendChild(div);
             });
 
-            if(totalAnotado > 0) { qtdRecebidaEl.value = totalAnotado; atualizarResumoTroca(); }
+            if(totalAnotado > 0) {
+                qtdRecebidaEl.value = totalAnotado;
+                atualizarResumoTroca();
+            }
         }
 
         window.limparSelecaoTroca = function(sigla) {
-            delete figurinhasTrocaAtual[sigla]; atualizarListaFigurinhas();
+            delete figurinhasTrocaAtual[sigla];
+            atualizarListaFigurinhas();
+            
             let totalAnotado = Object.values(figurinhasTrocaAtual).reduce((acc, curr) => acc + curr.length, 0);
-            qtdRecebidaEl.value = totalAnotado || ''; atualizarResumoTroca();
+            qtdRecebidaEl.value = totalAnotado || '';
+            atualizarResumoTroca();
         }
 
-        // ==========================================
-
-        tipoEl.addEventListener('change', atualizarResumoVenda); quantidadeEl.addEventListener('input', atualizarResumoVenda);
-        pagamentoEl.addEventListener('change', atualizarResumoVenda); valorRecebidoEl.addEventListener('input', atualizarResumoVenda);
-        val1El.addEventListener('input', atualizarResumoVenda); val2El.addEventListener('input', atualizarResumoVenda);
+        tipoEl.addEventListener('change', atualizarResumoVenda);
+        quantidadeEl.addEventListener('input', atualizarResumoVenda);
+        pagamentoEl.addEventListener('change', atualizarResumoVenda);
+        valorRecebidoEl.addEventListener('input', atualizarResumoVenda);
+        val1El.addEventListener('input', atualizarResumoVenda);
+        val2El.addEventListener('input', atualizarResumoVenda);
         qtdRecebidaEl.addEventListener('input', atualizarResumoTroca);
 
         formEstoque.addEventListener('submit', function(e) {
-            e.preventDefault(); const tipoItem = document.getElementById('tipo-estoque').value; const qtd = parseInt(document.getElementById('qtd-estoque').value);
-            if (tipoItem === 'Pacote') estoquePacotes += qtd; else if (tipoItem === 'Avulsa') estoqueAvulsas += qtd;
-            salvarDados(); atualizarInterface(); document.getElementById('qtd-estoque').value = 50; showToast(`${qtd} ${tipoItem}s adicionados ao estoque!`);
+            e.preventDefault();
+            const tipoItem = document.getElementById('tipo-estoque').value;
+            const qtd = parseInt(document.getElementById('qtd-estoque').value);
+
+            if (tipoItem === 'Pacote') estoquePacotes += qtd;
+            else if (tipoItem === 'Avulsa') estoqueAvulsas += qtd;
+
+            salvarDados();
+            atualizarInterface();
+            document.getElementById('qtd-estoque').value = 50; 
+            showToast(`${qtd} ${tipoItem}s adicionados ao estoque!`);
         });
 
         formEditarEstoque.addEventListener('submit', function(e) {
-            e.preventDefault(); estoquePacotes = parseInt(editPacotesEl.value); estoqueAvulsas = parseInt(editAvulsasEl.value);
-            salvarDados(); atualizarInterface(); showToast("Estoque corrigido com sucesso!");
+            e.preventDefault();
+            estoquePacotes = parseInt(editPacotesEl.value);
+            estoqueAvulsas = parseInt(editAvulsasEl.value);
+            salvarDados();
+            atualizarInterface();
+            showToast("Estoque corrigido com sucesso!");
         });
 
         formVenda.addEventListener('submit', function(e) {
-            e.preventDefault(); const tipo = tipoEl.value; const quantidade = parseInt(quantidadeEl.value); const preco = parseFloat(precoEl.value) || 0; const isMisto = checkMisto.checked; const totalVenda = quantidade * preco;
-            let formaPgto = pagamentoEl.value; let detalheExtra = ""; let recebidoValidacao = 0;
+            e.preventDefault();
+            const tipo = tipoEl.value;
+            const quantidade = parseInt(quantidadeEl.value);
+            const preco = parseFloat(precoEl.value) || 0;
+            const isMisto = checkMisto.checked;
+            const totalVenda = quantidade * preco;
+            
+            let formaPgto = pagamentoEl.value;
+            let detalheExtra = "";
+            let recebidoValidacao = 0;
 
-            if (tipo === 'Pacote' && quantidade > estoquePacotes) { showToast(`Estoque insuficiente! Você possui apenas ${estoquePacotes} pacotes.`, 'error'); return; }
-            if (tipo === 'Avulsa' && quantidade > estoqueAvulsas) { showToast(`Estoque insuficiente! Você possui apenas ${estoqueAvulsas} avulsas.`, 'error'); return; }
-
-            if (isMisto) {
-                const p1 = pag1El.value; const p2 = pag2El.value; const v1 = parseFloat(val1El.value) || 0; const v2 = parseFloat(val2El.value) || 0; recebidoValidacao = v1 + v2;
-                if (recebidoValidacao < totalVenda) { showToast("A soma dos valores está menor que o total!", 'error'); return; }
-                formaPgto = 'Misto'; detalheExtra = `<b>${p1}:</b> ${formatarBRL(v1)} <br> <b>${p2}:</b> ${formatarBRL(v2)}`;
-            } else {
-                recebidoValidacao = parseFloat(valorRecebidoEl.value) || 0;
-                if (formaPgto === 'Dinheiro' && recebidoValidacao > 0 && recebidoValidacao < totalVenda) { showToast("O dinheiro recebido é menor que o total!", 'error'); return; }
+            if (tipo === 'Pacote' && quantidade > estoquePacotes) {
+                showToast(`Estoque insuficiente! Você possui apenas ${estoquePacotes} pacotes.`, 'error');
+                return;
+            }
+            if (tipo === 'Avulsa' && quantidade > estoqueAvulsas) {
+                showToast(`Estoque insuficiente! Você possui apenas ${estoqueAvulsas} avulsas.`, 'error');
+                return;
             }
 
-            let custoUnitario = 0; if (tipo === 'Pacote') custoUnitario = 5.05; else if (tipo === 'Avulsa') custoUnitario = 0; 
+            if (isMisto) {
+                const p1 = pag1El.value;
+                const p2 = pag2El.value;
+                const v1 = parseFloat(val1El.value) || 0;
+                const v2 = parseFloat(val2El.value) || 0;
+                
+                recebidoValidacao = v1 + v2;
+                
+                if (recebidoValidacao < totalVenda) {
+                    showToast("A soma dos valores está menor que o total!", 'error');
+                    return;
+                }
+
+                formaPgto = 'Misto';
+                detalheExtra = `<b>${p1}:</b> ${formatarBRL(v1)} <br> <b>${p2}:</b> ${formatarBRL(v2)}`;
+            } else {
+                recebidoValidacao = parseFloat(valorRecebidoEl.value) || 0;
+                if (formaPgto === 'Dinheiro' && recebidoValidacao > 0 && recebidoValidacao < totalVenda) {
+                    showToast("O dinheiro recebido é menor que o total!", 'error');
+                    return; 
+                }
+            }
+
+            let custoUnitario = 0;
+            if (tipo === 'Pacote') custoUnitario = 5.05;
+            else if (tipo === 'Avulsa') custoUnitario = 0; 
+            
             const custoDaOperacao = quantidade * custoUnitario;
 
-            if (tipo === 'Pacote') estoquePacotes -= quantidade; else if (tipo === 'Avulsa') estoqueAvulsas -= quantidade;
-            totalArrecadado += totalVenda; custoTotal += custoDaOperacao; 
+            if (tipo === 'Pacote') estoquePacotes -= quantidade;
+            else if (tipo === 'Avulsa') estoqueAvulsas -= quantidade;
 
-            const dataAtual = new Date(); const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-            historicoVendas.unshift({ data: formatData, tipo: tipo, qtd: quantidade, preco: preco, total: totalVenda, custo: custoDaOperacao, pagamento: formaPgto, detalhePgto: detalheExtra, troco: trocoAtual });
+            totalArrecadado += totalVenda;
+            custoTotal += custoDaOperacao; 
+
+            const dataAtual = new Date();
+            const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+            historicoVendas.unshift({
+                data: formatData, tipo: tipo, qtd: quantidade, preco: preco,
+                total: totalVenda, custo: custoDaOperacao, pagamento: formaPgto, detalhePgto: detalheExtra, troco: trocoAtual
+            });
             
-            salvarDados(); atualizarInterface(0); quantidadeEl.value = 1; valorRecebidoEl.value = ''; val1El.value = ''; val2El.value = '';
-            if (isMisto) { checkMisto.checked = false; pagamentoEl.classList.remove('escondido'); areaPgtoMisto.classList.add('escondido'); }
-            atualizarResumoVenda(); quantidadeEl.focus(); showToast("Venda registrada!");
+            salvarDados();
+            atualizarInterface(0); 
+            
+            quantidadeEl.value = 1;
+            valorRecebidoEl.value = ''; val1El.value = ''; val2El.value = '';
+            
+            if (isMisto) {
+                checkMisto.checked = false;
+                pagamentoEl.classList.remove('escondido');
+                areaPgtoMisto.classList.add('escondido');
+            }
+
+            atualizarResumoVenda();
+            quantidadeEl.focus();
+            showToast("Venda registrada!");
         });
 
         formTroca.addEventListener('submit', function(e) {
-            e.preventDefault(); const recebidas = parseInt(qtdRecebidaEl.value) || 0;
-            if (recebidas < 7) { showToast("Receba pelo menos 7 figurinhas para trocar.", 'error'); return; }
+            e.preventDefault();
+            const recebidas = parseInt(qtdRecebidaEl.value) || 0;
+            
+            if (recebidas < 7) {
+                showToast("Receba pelo menos 7 figurinhas para trocar.", 'error');
+                return;
+            }
 
-            const pacotes = Math.floor(recebidas / 7); const excedente = recebidas % 7; const valorPagar = excedente * 1.00; const formaPgto = pagamentoTrocaEl.value;
-            if (pacotes > estoquePacotes) { showToast(`Estoque insuficiente! Você precisa de ${pacotes} pacotes, mas tem ${estoquePacotes}.`, 'error'); return; }
+            const pacotes = Math.floor(recebidas / 7);
+            const excedente = recebidas % 7;
+            const valorPagar = excedente * 1.00;
+            const formaPgto = pagamentoTrocaEl.value;
+
+            if (pacotes > estoquePacotes) {
+                showToast(`Estoque insuficiente! Você precisa de ${pacotes} pacotes, mas tem ${estoquePacotes}.`, 'error');
+                return;
+            }
 
             const custoDaTroca = pacotes * 5.05; 
-            estoqueAvulsas += recebidas; estoquePacotes -= pacotes; totalArrecadado -= valorPagar; custoTotal += custoDaTroca;
 
-            const dataAtual = new Date(); const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+            estoqueAvulsas += recebidas;
+            estoquePacotes -= pacotes;
+            totalArrecadado -= valorPagar;
+            custoTotal += custoDaTroca;
+
+            const dataAtual = new Date();
+            const formatData = dataAtual.toLocaleDateString('pt-BR') + ' ' + dataAtual.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+            // Copia as figurinhas registradas para o histórico
             const objFigurinhasSalvar = JSON.parse(JSON.stringify(figurinhasTrocaAtual));
 
-            historicoVendas.unshift({ data: formatData, tipo: 'Troca', qtd: recebidas, pacotesEntregues: pacotes, figurinhas: objFigurinhasSalvar, total: valorPagar * -1, custo: custoDaTroca, pagamento: excedente > 0 ? formaPgto : '-', detalhePgto: '', troco: 0 });
+            historicoVendas.unshift({
+                data: formatData, tipo: 'Troca', qtd: recebidas, pacotesEntregues: pacotes, figurinhas: objFigurinhasSalvar,
+                total: valorPagar * -1, custo: custoDaTroca, pagamento: excedente > 0 ? formaPgto : '-', detalhePgto: '', troco: 0
+            });
             
-            salvarDados(); atualizarInterface(0); 
-            qtdRecebidaEl.value = ''; figurinhasTrocaAtual = {}; atualizarListaFigurinhas(); atualizarResumoTroca();
-            fecharCamera(); // Garante que a câmera feche ao confirmar
-            qtdRecebidaEl.focus(); showToast("Troca realizada com sucesso!");
+            salvarDados();
+            atualizarInterface(0);
+            
+            // Limpar form
+            qtdRecebidaEl.value = '';
+            figurinhasTrocaAtual = {};
+            atualizarListaFigurinhas();
+            atualizarResumoTroca();
+            
+            qtdRecebidaEl.focus();
+            showToast("Troca realizada com sucesso!");
         });
 
         btnExportar.addEventListener('click', function() {
             const dadosParaExportar = { total: totalArrecadado, custo: custoTotal, pacotes: estoquePacotes, avulsas: estoqueAvulsas, historico: historicoVendas };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dadosParaExportar));
             const dataHoje = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
-            const tagDownload = document.createElement('a'); tagDownload.setAttribute("href", dataStr); tagDownload.setAttribute("download", `pdv-copa-backup-${dataHoje}.json`);
-            document.body.appendChild(tagDownload); tagDownload.click(); tagDownload.remove(); showToast("Backup baixado com sucesso!");
+            
+            const tagDownload = document.createElement('a');
+            tagDownload.setAttribute("href", dataStr);
+            tagDownload.setAttribute("download", `pdv-copa-backup-${dataHoje}.json`);
+            document.body.appendChild(tagDownload);
+            tagDownload.click();
+            tagDownload.remove();
+            showToast("Backup baixado com sucesso!");
         });
 
         inputImportar.addEventListener('change', function(event) {
-            const arquivo = event.target.files[0]; if (!arquivo) return;
+            const arquivo = event.target.files[0];
+            if (!arquivo) return;
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const dadosImportados = JSON.parse(e.target.result);
                     if (dadosImportados && typeof dadosImportados.total !== 'undefined') {
-                        totalArrecadado = dadosImportados.total; custoTotal = dadosImportados.custo || 0; estoquePacotes = dadosImportados.pacotes; estoqueAvulsas = dadosImportados.avulsas; historicoVendas = dadosImportados.historico || [];
-                        salvarDados(); atualizarInterface(); showToast("Dados sincronizados com sucesso!");
-                    } else showToast("Arquivo de backup inválido.", 'error');
-                } catch (erro) { showToast("Erro ao ler o arquivo.", 'error'); }
+                        totalArrecadado = dadosImportados.total;
+                        custoTotal = dadosImportados.custo || 0; 
+                        estoquePacotes = dadosImportados.pacotes;
+                        estoqueAvulsas = dadosImportados.avulsas;
+                        historicoVendas = dadosImportados.historico || [];
+                        
+                        salvarDados();
+                        atualizarInterface();
+                        showToast("Dados sincronizados com sucesso!");
+                    } else {
+                        showToast("Arquivo de backup inválido.", 'error');
+                    }
+                } catch (erro) {
+                    showToast("Erro ao ler o arquivo.", 'error');
+                }
             };
-            reader.readAsText(arquivo); event.target.value = '';
+            reader.readAsText(arquivo);
+            event.target.value = '';
         });
 
         // Init App
-        atualizarResumoVenda(); atualizarResumoTroca(); atualizarInterface();
+        atualizarResumoVenda();
+        atualizarResumoTroca();
+        atualizarInterface();
     </script>
 </body>
 </html>
